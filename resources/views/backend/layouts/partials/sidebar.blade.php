@@ -91,7 +91,12 @@
 
                                  @if ($usr->can('admin.create'))
                                      <li class="{{ Route::is('create.supplier') ? 'active' : '' }}"><a
-                                             href="{{ route('create.supplier') }}">Add Supplier</a></li>
+                                             href="{{ route('create.supplier') }}">Supplier</a></li>
+                                 @endif
+
+                                 @if ($usr->can('admin.create'))
+                                     <li class="{{ Route::is('create.customer') ? 'active' : '' }}"><a
+                                             href="{{ route('create.customer') }}">Customer</a></li>
                                  @endif
                             </ul>
 

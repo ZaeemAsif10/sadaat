@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Customer_group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerGroupController extends Controller
 {
@@ -17,5 +18,64 @@ class CustomerGroupController extends Controller
     {
         $customer_group = Customer_group::all();
         return $customer_group;
+    }
+
+    public function customerGroupStore(Request $request)
+    {
+
+        $data = $request->all();
+        $rules = array(
+            'name' => 'required',
+            'percentage' => 'required',
+        );
+
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) {
+
+            return response()->json(['errors' => $validator->errors()]);
+        }
+
+        $customer_group = new Customer_group();
+        $customer_group->name = $request->input('name');
+        $customer_group->percentage = $request->input('percentage');
+        
+        $customer_group->save();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Customer group added successfully',
+        ]);
+    }
+
+    public function customerGroupEdit(Request $request)
+    {
+        $customer_group = Customer_group::find($request->id);
+        return response()->json([
+            'customer_group' => $customer_group,
+        ]);
+    }
+
+    public function customerGroupUpdate(Request $request)
+    {
+        $customer_group = Customer_group::find($request->customer_group_id);
+        $customer_group->name = $request->input('name');
+        $customer_group->percentage = $request->input('percentage');
+        
+        $customer_group->save();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Customer group update successfully',
+        ]);
+    }
+
+    public function customerGroupDelete(Request $request)
+    {
+        $customer_group = Customer_group::find($request->id);
+        if ($customer_group) {
+            $customer_group->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Customer group deleted successfully',
+            ]);
+        }
     }
 }
