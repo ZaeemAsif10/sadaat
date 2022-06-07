@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\CustomerGroupController;
+use App\Http\Controllers\Backend\CustomerController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -72,3 +73,16 @@ Route::get('supplier-delete', [SupplierController::class, 'supplierDelete'])->na
 // Customer Group Routes
 Route::get('create-customer-group', [CustomerGroupController::class, 'createCustomerGroup'])->name('create.customer.group');
 Route::get('get-customer-group', [CustomerGroupController::class, 'getCustomerGroup']);
+Route::post('customer-group-store', [CustomerGroupController::class, 'customerGroupStore']);
+Route::get('customer-group-edit', [CustomerGroupController::class, 'customerGroupEdit']);
+Route::post('customer-group-update', [CustomerGroupController::class, 'customerGroupUpdate']);
+Route::get('customer-group-delete', [CustomerGroupController::class, 'customerGroupDelete']);
+
+
+// Customer Routes
+Route::get('create-customer', [CustomerController::class, 'createCustomer'])->name('create.customer');
+Route::get('get-customer', [CustomerController::class, 'getCustomer']);
+Route::post('customer-store', [CustomerController::class, 'customerStore']);
+Route::get('customer-edit', [CustomerController::class, 'customerEdit']);
+Route::post('customer-update', [CustomerController::class, 'customerUpdate']);
+Route::get('customer-delete', [CustomerController::class, 'customerDelete']);

@@ -60,7 +60,7 @@
                                         <th width="5%">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="supplierTable">
+                                <tbody id="customergroupTable">
 
                                 </tbody>
                             </table>
@@ -73,156 +73,74 @@
         </div>
     </div>
 
-    {{-- Add Suplier Modal Start --}}
+    {{-- Add customer_group Modal Start --}}
     <div class="modal fade bd-example-modal-lg" id="add_customer_group_modal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Supplier</h5>
+                    <h5 class="modal-title">Add Customer Group</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" id="addSupplierForm" method="POST" enctype="multipart/form-data">
+                    <form action="" id="addCustomerGroupForm" method="POST" enctype="multipart/form-data">
                         {{-- @csrf --}}
                         <div class="form-row">
-                            <div class="form-group col-md-4 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <label for="wareh_name">Name</label>
                                 <input type="text" class="form-control" name="name" required>
                             </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Company Name</label>
-                                <input type="text" class="form-control" name="company_name" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Email</label>
-                                <input type="text" class="form-control" name="email" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> VAT Number</label>
-                                <input type="number" class="form-control" name="vat_number" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Phone</label>
-                                <input type="number" class="form-control" name="phone" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Address</label>
-                                <input type="text" class="form-control" name="address" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> City</label>
-                                <input type="text" class="form-control" name="city" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> State</label>
-                                <input type="text" class="form-control" name="state" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Postal Code</label>
-                                <input type="text" class="form-control" name="p_code" required>
-                            </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="email"> Country</label>
-                                <input type="text" class="form-control" name="country" required>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="email"> Image</label>
-                                <input type="file" class="form-control" name="image" required>
+                                <label for="email"> Percentage(%)</label>
+                                <input type="text" class="form-control" name="percentage" required>
                             </div>
                         </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary save_suplier">Save</button>
+                    <button type="submit" class="btn btn-primary save_customer_group">Save</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
-    {{-- Add Suplier Modal End --}}
+    {{-- Add customer_group Modal End --}}
 
 
-    {{-- Edit Suplier Modal Start --}}
-    <div class="modal fade bd-example-modal-lg" id="edit_supplier_modal" tabindex="-1" role="dialog"
+    {{-- Edit customer_group Modal Start --}}
+    <div class="modal fade bd-example-modal-lg" id="edit_customer_group_modal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Supplier</h5>
+                    <h5 class="modal-title">Edit Customer Group</h5>
                     <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" id="editSupplierForm" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="supplier_id">
+                    <form action="" id="editCustomerGroupForm" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="customer_group_id">
                         {{-- @csrf --}}
                         <div class="form-row">
-                            <div class="form-group col-md-4 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <label for="wareh_name">Name</label>
                                 <input type="text" class="form-control" name="name" required>
                             </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Company Name</label>
-                                <input type="text" class="form-control" name="company_name" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Email</label>
-                                <input type="text" class="form-control" name="email" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> VAT Number</label>
-                                <input type="number" class="form-control" name="vat_number" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Phone</label>
-                                <input type="number" class="form-control" name="phone" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Address</label>
-                                <input type="text" class="form-control" name="address" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> City</label>
-                                <input type="text" class="form-control" name="city" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> State</label>
-                                <input type="text" class="form-control" name="state" required>
-                            </div>
-                            <div class="form-group col-md-4 col-sm-12">
-                                <label for="email"> Postal Code</label>
-                                <input type="text" class="form-control" name="p_code" required>
-                            </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="email"> Country</label>
-                                <input type="text" class="form-control" name="country" required>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="email"> Image</label>
-                                <input type="file" class="form-control" name="image" required>
-                                
+                                <label for="email"> Percentage(%)</label>
+                                <input type="text" class="form-control" name="percentage" required>
                             </div>
                         </div>
-                        <div class="row text-center">
-                            <div class="w-100">
-                                <h6 class="text-center #badge badge-primary"> Image</h6>
-                            </div>
-                            <div class="col-md-12">
-                                <span id="store_image"></span>
-                            </div>
-                        </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary update_suplier">Update</button>
+                    <button type="submit" class="btn btn-primary update_customer_group">Update</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
-    {{-- Edit Suplier Modal End --}}
+    {{-- Edit customer_group Modal End --}}
 @endsection
 
 
@@ -237,8 +155,8 @@
 
     <script>
         /*================================
-                                                datatable active
-                                                ==================================*/
+                                                        datatable active
+                                                        ==================================*/
         if ($('#dataTable').length) {
             $('#dataTable').DataTable({});
         }
@@ -270,14 +188,14 @@
                             html += '<tr>' +
                                 '<td>' + c + '</td>' +
                                 '<td>' + data[i].name + '</td>' +
-                                '<td>' + data[i].percentage + '</td>' +
+                                '<td>' + data[i].percentage + ' (%)</td>' +
                                 '<td> ' +
                                 '<ul class="d-flex justify-content-center"> ' +
-                                '<li><a href="#" class="text-secondary btn-edit-supplier" data="' +
+                                '<li><a href="#" class="text-secondary edit-customer-group" data="' +
                                 data[
                                     i].id + '"><i class="fa fa-edit"></i></a> ' +
                                 '</li> ' +
-                                '<li><a href="#" class="text-danger btn-delete-supplier ml-2" data="' +
+                                '<li><a href="#" class="text-danger delete-customer-group ml-2" data="' +
                                 data[
                                     i].id + '"><i class="ti-trash"></i></a> ' +
                                 '</li> ' +
@@ -287,7 +205,7 @@
                         }
 
 
-                        $('#supplierTable').html(html);
+                        $('#customergroupTable').html(html);
 
                     },
                     error: function() {
@@ -297,15 +215,15 @@
                 });
             }
 
-            //Add Supplier
-            $('#addSupplierForm').on('submit', function(e) {
+            //Add Customer Group
+            $('#addCustomerGroupForm').on('submit', function(e) {
                 e.preventDefault();
 
-                let formData = new FormData($('#addSupplierForm')[0]);
+                let formData = new FormData($('#addCustomerGroupForm')[0]);
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('supplier-store') }}",
+                    url: "{{ url('customer-group-store') }}",
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -313,18 +231,18 @@
                     contentType: false,
                     processData: false,
                     beforeSend: function() {
-                        $('.save_suplier').text('Saving...');
-                        $(".save_suplier").prop("disabled", true);
+                        $('.save_customer_group').text('Saving...');
+                        $(".save_customer_group").prop("disabled", true);
                     },
                     success: function(response) {
 
                         if (response.status == 200) {
-                            $('.save_suplier').text('Save');
-                            $(".save_suplier").prop("disabled", false);
+                            $('.save_customer_group').text('Save');
+                            $(".save_customer_group").prop("disabled", false);
                             $(".close").click();
-                            $('#addSupplierForm').find('input').val("");
-                            getSupplier();
+                            $('#addCustomerGroupForm').find('input').val("");
                             toastr.success(response.message);
+                            getCustomerGroup();
                         }
 
                         if (response.error) {
@@ -332,8 +250,8 @@
                         }
                     },
                     error: function() {
-                        $('.save_suplier').text('Save');
-                        $(".save_suplier").prop("disabled", false);
+                        $('.save_customer_group').text('Save');
+                        $(".save_customer_group").prop("disabled", false);
                         toastr.error('something went wrong');
                     },
                 });
@@ -341,18 +259,18 @@
             });
 
             //Edit Supplier
-            $('#supplierTable').on('click', '.btn-edit-supplier', function(e) {
+            $('#customergroupTable').on('click', '.edit-customer-group', function(e) {
                 e.preventDefault();
 
                 var id = $(this).attr('data');
 
-                $('#edit_supplier_modal').modal('show');
+                $('#edit_customer_group_modal').modal('show');
 
                 $.ajax({
 
                     type: 'ajax',
                     method: 'get',
-                    url: '{{ url('supplier-edit') }}',
+                    url: '{{ url('customer-group-edit') }}',
                     data: {
                         id: id
                     },
@@ -360,25 +278,9 @@
                     dataType: 'json',
                     success: function(data) {
 
-                        $('input[name=supplier_id]').val(data.suplier.id);
-                        $('input[name=name]').val(data.suplier.name);
-                        $('input[name=email]').val(data.suplier.email);
-                        $('input[name=company_name]').val(data.suplier.company_name);
-                        $('input[name=address]').val(data.suplier.address);
-                        $('input[name=city]').val(data.suplier.city);
-                        $('input[name=vat_number]').val(data.suplier.vat_number);
-                        $('input[name=country]').val(data.suplier.country);
-                        $('input[name=state]').val(data.suplier.state);
-                        $('input[name=p_code]').val(data.suplier.p_code);
-                        $('input[name=phone]').val(data.suplier.phone);
-                        $('#store_image').html(
-                            '<img src="{{ asset('storage/app/public/uploads/supplier/') }}/' +
-                            data.suplier.image +
-                            '" class="mt-3" width="15%" />'
-                        );
-                        $('#store_image').append(
-                            '<input type="hidden" name="hidden_image" value="' + data
-                            .suplier.image + '" />');
+                        $('input[name=customer_group_id]').val(data.customer_group.id);
+                        $('input[name=name]').val(data.customer_group.name);
+                        $('input[name=percentage]').val(data.customer_group.percentage);
                     },
 
                     error: function() {
@@ -391,16 +293,16 @@
 
             });
 
-             //Update Events
-             $('.update_suplier').on('click', function(e) {
+            //Update Customer Group
+            $('.update_customer_group').on('click', function(e) {
                 e.preventDefault();
 
 
-                let EditFormData = new FormData($('#editSupplierForm')[0]);
+                let EditFormData = new FormData($('#editCustomerGroupForm')[0]);
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('supplier-update') }}",
+                    url: "{{ url('customer-group-update') }}",
                     data: EditFormData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -409,31 +311,31 @@
                     processData: false,
                     dataType: "json",
                     beforeSend: function() {
-                        $('.update_suplier').text('Updating...');
-                        $(".update_suplier").prop("disabled", true);
+                        $('.update_customer_group').text('Updating...');
+                        $(".update_customer_group").prop("disabled", true);
                     },
                     success: function(response) {
 
                         if (response.status == 200) {
-                            $('#edit_supplier_modal').modal('hide');
-                            $('#editSupplierForm').find('input').val("");
-                            $('.update_suplier').text('Update');
-                            $(".update_suplier").prop("disabled", false);
+                            $('#edit_customer_group_modal').modal('hide');
+                            $('#editCustomerGroupForm').find('input').val("");
+                            $('.update_customer_group').text('Update');
+                            $(".update_customer_group").prop("disabled", false);
                             toastr.success(response.message);
-                            getSupplier();
+                            getCustomerGroup();
                         }
                     },
                     error: function() {
                         toastr.error('something went wrong');
-                        $('.update_suplier').text('Update');
-                        $(".update_suplier").prop("disabled", false);
+                        $('.update_customer_group').text('Update');
+                        $(".update_customer_group").prop("disabled", false);
                     }
                 });
 
             });
 
-            // Delete Supplier
-            $('#supplierTable').on('click', '.btn-delete-supplier', function(e) {
+            // Delete Customer Group
+            $('#customergroupTable').on('click', '.delete-customer-group', function(e) {
                 e.preventDefault();
 
                 var id = $(this).attr('data');
@@ -450,7 +352,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "GET",
-                            url: "{{ url('supplier-delete') }}",
+                            url: "{{ url('customer-group-delete') }}",
                             data: {
                                 id: id
                             },
@@ -461,7 +363,7 @@
                             success: function(response) {
 
                                 toastr.success(response.message);
-                                getSupplier();
+                                getCustomerGroup();
                             }
                         });
                     }
