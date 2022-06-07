@@ -41,7 +41,7 @@
             <div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title float-left">Warehouses List</h4>
+                        <h4 class="header-title float-left">Supplier List</h4>
                         <p class="float-right mb-2">
                             @if (Auth::guard('admin')->user()->can('admin.edit'))
                                 <button type="button" class="btn btn-primary btn-flat btn-md" data-toggle="modal"
