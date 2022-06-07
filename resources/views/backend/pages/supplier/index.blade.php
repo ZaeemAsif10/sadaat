@@ -337,7 +337,7 @@
                             $(".close").click();
                             $('#addSupplierForm').find('input').val("");
                             getSupplier();
-                            // toastr.success(response.message);
+                            toastr.success(response.message);
                         }
 
                         if (response.error) {
@@ -432,7 +432,7 @@
                             $('#editSupplierForm').find('input').val("");
                             $('.update_suplier').text('Update');
                             $(".update_suplier").prop("disabled", false);
-                            // toastr.success(response.message);
+                            toastr.success(response.message);
                             getSupplier();
                         }
                     },
@@ -473,9 +473,8 @@
                             dataType: "json",
                             success: function(response) {
 
-                                alert(response.message);
+                                toastr.success(response.message);
                                 getSupplier();
-                                // toastr.success(response.message);
                             }
                         });
                     }
