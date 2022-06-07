@@ -68,12 +68,11 @@
                              @if ($usr->can('admin.create'))
                                  <li class="{{ Route::is('create.customer.group') ? 'active' : '' }}"><a
                                          href="{{ route('create.customer.group') }}">Customer Group</a></li>
-                                         {{-- {{ route('admin.brand') }} --}}
                              @endif
 
                              @if ($usr->can('admin.create'))
                              <li class="{{ Route::is('admin.unit') ? 'active' : '' }}"><a
-                                     href="">Unit</a></li>
+                                     href="{{ route('admin.unit') }}">Unit</a></li>
     
                          @endif
                          </ul>
@@ -94,13 +93,27 @@
                                      <li class="{{ Route::is('create.supplier') ? 'active' : '' }}"><a
                                              href="{{ route('create.supplier') }}">Add Supplier</a></li>
                                  @endif
-                         </li>
+                            </ul>
+
+                     </li>
                      @endif
 
+                     @if ($usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete') || $usr->can('admin.create') || $usr->can('admin.view') || $usr->can('admin.edit') || $usr->can('admin.catagory'))
+                         <li>
+                             <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-tasks"></i><span>
+Product                                 </span></a>
+                             <ul
+                                 class="collapse {{ $usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete') || $usr->can('admin.create') || $usr->can('admin.view') || $usr->can('admin.edit') || $usr->can('admin.catagory') ? 'in' : '' }}">
 
-                    
+                                 @if ($usr->can('admin.create'))
+                                     <li class="{{ Route::is('admin.catagory') ? 'active' : '' }}"><a
+                                             href="{{ route('admin.catagory') }}">Catagory</a></li>
+                                 @endif
+                            </ul>
 
-                 </ul>
+                     </li>
+                     @endif
+
              </nav>
          </div>
      </div>

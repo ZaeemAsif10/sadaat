@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Unit extends Model
-{ protected $guarded = [];
+class Catagory extends Model
+{
     use HasFactory;
 }

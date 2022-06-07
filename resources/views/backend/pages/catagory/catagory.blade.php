@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Admins - units
+Admins - Admin Panel
 @endsection
 
 @section('styles')
@@ -40,7 +40,7 @@ Admins - units
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title float-left">Unit List</h4>
+                    <h4 class="header-title float-left">Catagory List</h4>
                     <p class="float-right mb-2">
                         @if (Auth::guard('admin')->user()->can('admin.edit'))
                         <button type="button" class="btn btn-primary btn-flat btn-md" data-toggle="modal" data-target=".bd-example-modal-lg">+ Add new
@@ -51,27 +51,25 @@ Admins - units
                         <table id="dataTable" class="text-center">
                             <thead class="bg-light text-capitalize">
                                 <tr>
-                                    <th width="5%">Sl</th>
-                                    <th width="5%">Unit code</th>
-                                    <th width="5%">Unit name</th>
+                                    <th width="5%">Id</th>
+                                    <th width="5%">Name</th>
+                                    <th width="5%">image</th>
                                     <th width="5%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                @foreach($Unit as $key=> $ware)
-
+                                @foreach($ware_houses as $ware)
                                 <tr>
-                                    <td>{{$key+1 }}</td>
-                                    <td>{{$ware->unit_code}}</td>
+                                    <td>{{$ware->id}}</td>
 
-                                    <td>{{$ware->unit_name}}</td>
+                                    <td>{{$ware->catagory_name}}</td>
+                                    <td> <img src="{{ asset('storage/app/public/uploads/catagory/'.$ware->catagory_img) }}" width="30%"></td>
 
 
                                     <td>
                                         <ul class="d-flex justify-content-center">
                                             <li class="mr-3"><a type="button" class="" data-toggle="modal" data-target=".bd-example-modal-lg-{{$ware->id}}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                            <form method="get" action="{{ route('admin.unit.delete', $ware->id) }}">
+                                            <form method="get" action="{{ route('admin.catagory.delete', $ware->id) }}">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
                             <a type="submit" class=" text-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'><i class="ti-trash"></i></a>
@@ -84,26 +82,31 @@ Admins - units
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Update Brand Detail </h5>
+                                                    <h5 class="modal-title">Update Catagory Detail </h5>
                                                     <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('admin.unit.update') }}" method="POST" enctype="multipart/form-data">
+                                                    <form action="{{ route('admin.catagory.update') }}" method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         <input type="hidden" class="form-control" id="id" name="id" placeholder="Enter Name" value="{{$ware->id}}">
 
                                                         <div class="form-row">
                                                             <div class="form-group col-md-6 col-sm-12">
-                                                                <label for="wareh_name">Warehouse Name</label>
-                                                                <input type="text" class="form-control" id="unit_code" name="unit_code"  value="{{$ware->unit_code}}" placeholder="Enter Brand Name">
+                                                                <label for="wareh_name">Catagory Name</label>
+                                                                <input type="text" required class="form-control" id="catagory_name" required name="catagory_name"  value="{{$ware->catagory_name}}" placeholder="Enter Brand Name">
                                                             </div>
                                                             <div class="form-group col-md-6 col-sm-12">
-                                                                <label for="image"> Brnad Image</label>
-                                                                <input required type="text" class="form-control" id="unit_name" name="unit_name" value="{{$ware->unit_name}}"  placeholder="Enter Brand Image">
+                                                                <label for="image"> Catagory Image</label>
+                                                                <input type="file" required class="form-control" required id="catagory_img" name="catagory_img" placeholder="Enter Brand Image">
                                                             </div>
                                                         </div>
 
-                                                       
+                                                        <div class="row text-center">
+                                                        <div class="w-100"><h6 class="text-center #badge badge-primary"> Catagory Image</h6></div>
+                                                            <div class="col-md-12">
+                                                                <img src="{{ asset('storage/app/public/uploads/catagory/'.$ware->catagory_img) }}" width="50%">
+                                                            </div>
+                                                        </div>
 
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -135,20 +138,20 @@ Admins - units
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Unit</h5>
+                <h5 class="modal-title">Modal title</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.unit.create') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.catagory.create') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="unit_code">Unit Code</label>
-                            <input required type="text" class="form-control" id="unit_code" name="unit_code" placeholder="Enter Unit Code">
+                            <label for="catagory_name">Catagory Name</label>
+                            <input type="text" required class="form-control" id="catagory_name" name="catagory_name" placeholder="Enter Brand Name">
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="unit_name"> Unit Name</label>
-                            <input required type="text" class="form-control" id="unit_name" name="unit_name" placeholder="Enter Unit Name">
+                            <label for="catagory_img"> Catagory Image</label>
+                            <input type="file" required class="form-control" id="catagory_img" name="catagory_img" placeholder="Enter Brand Image">
                         </div>
                     </div>
 

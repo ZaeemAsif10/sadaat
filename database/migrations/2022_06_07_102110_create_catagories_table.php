@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('units', function (Blueprint $table) {
+        Schema::create('catagories', function (Blueprint $table) {
             $table->id();
-            $table->string('unit_code');
-            $table->string('unit_name');
-            $table->string('unit_status')->default('0');
+            $table->string('catagory_name');
+            $table->string('catagory_img');
+            $table->tinyInteger('brand_status')->default('0');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('units');
+        Schema::dropIfExists('catagories');
     }
 };

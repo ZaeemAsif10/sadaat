@@ -147,11 +147,11 @@ Admins - Admin Panel
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="wareh_name">Warehouse Name</label>
-                            <input type="text" class="form-control" id="wareh_name" name="brand_name" placeholder="Enter Brand Name">
+                            <input type="text" required class="form-control" id="wareh_name" name="brand_name" placeholder="Enter Brand Name">
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="image"> Brnad Image</label>
-                            <input type="file" class="form-control" id="brand_img" name="brand_img" placeholder="Enter Brand Image">
+                            <input type="file" required class="form-control" id="brand_img" name="brand_img" placeholder="Enter Brand Image">
                         </div>
                     </div>
 

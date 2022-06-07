@@ -60,10 +60,15 @@ Route::post('/update-brand', 'Backend\BrandController@BrandUpdate')->name('admin
 Route::get('/delete-brand/{id}', 'Backend\BrandController@BrandDelete')->name('admin.brand.delete');
 
 //unit routes
-Route::get('/units', 'Backend\BrandController@Brand')->name('admin.unit');
-Route::post('/create-brand', 'Backend\BrandController@BrandStore')->name('admin.brand.create');
-Route::post('/update-brand', 'Backend\BrandController@BrandUpdate')->name('admin.brand.update');
-Route::get('/delete-brand/{id}', 'Backend\BrandController@BrandDelete')->name('admin.brand.delete');
+Route::get('/units', 'Backend\UnitController@Unit')->name('admin.unit');
+Route::post('/create-units', 'Backend\UnitController@UnitStore')->name('admin.unit.create');
+Route::post('/update-unit', 'Backend\UnitController@UnitUpdate')->name('admin.unit.update');
+Route::get('/delete-unit/{id}', 'Backend\UnitController@UnitDelete')->name('admin.unit.delete');
+
+Route::get('/catagories', 'Backend\CatagoryController@Catagory')->name('admin.catagory');
+Route::post('/create-catagory', 'Backend\CatagoryController@CatagoryStore')->name('admin.catagory.create');
+Route::post('/update-catagory', 'Backend\CatagoryController@CatagoryUpdate')->name('admin.catagory.update');
+Route::get('/delete-catagory/{id}', 'Backend\CatagoryController@CatagoryDelete')->name('admin.catagory.delete');
 
 // Supplier Routes
 Route::get('create-supplier', [SupplierController::class, 'createSupplier'])->name('create.supplier');

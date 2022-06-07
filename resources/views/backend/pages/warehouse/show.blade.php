@@ -167,34 +167,34 @@ Admins - Admin Panel
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="wareh_name">Warehouse Name</label>
-                                <input type="text" class="form-control" id="wareh_name" name="wareh_name" placeholder="Enter Name">
+                                <input  required type="text" class="form-control" id="wareh_name" name="wareh_name" placeholder="Enter Name">
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="email"> Email</label>
-                                <input type="text" class="form-control" id="wareh_email" name="wareh_email" placeholder="Enter Email">
+                                <input required type="text" class="form-control" id="wareh_email" name="wareh_email" placeholder="Enter Email">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="password">Phone number</label>
-                                <input type="text" class="form-control" id="wareh_phone" name="wareh_phone" placeholder="Enter Phone number">
+                                <input required type="text" class="form-control" id="wareh_phone" name="wareh_phone" placeholder="Enter Phone number">
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="wareh_address">Address </label>
-                                <input type="text" class="form-control" id="wareh_address" name="wareh_address" placeholder="Enter Address">
+                                <input type="text" required class="form-control" id="wareh_address" name="wareh_address" placeholder="Enter Address">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="wareh_stock">Number of Products</label>
-                                <input type="text" class="form-control" id="wareh_stock" name="wareh_stock" placeholder="Enter Number of Products">
+                                <input  required type="text" class="form-control" id="wareh_stock" name="wareh_stock" placeholder="Enter Number of Products">
 
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="username">Product Quantity</label>
-                                <input type="text" class="form-control" id="username" name="wareh_quantiy" placeholder="Enter Product Quantity" required>
+                                <input required type="text" class="form-control" id="username" name="wareh_quantiy" placeholder="Enter Product Quantity" required>
                             </div>
                         </div>
                         
