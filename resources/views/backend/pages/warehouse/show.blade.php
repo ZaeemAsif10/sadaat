@@ -48,7 +48,6 @@ Admins - Admin Panel
                     </p>
                     <div class="clearfix " style="margin-top: 40px;"></div>
                     <div class="data-tables">
-                        @include('backend.layouts.partials.messages')
                         <table id="dataTable" class="text-center">
                             <thead class="bg-light text-capitalize">
                                 <tr>
