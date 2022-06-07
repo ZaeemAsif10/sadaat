@@ -37,7 +37,14 @@
 
     @include('backend.layouts.partials.offsets')
     @include('backend.layouts.partials.scripts')
-   
+    <script>
+               @if(session('message'))
+                toastr.success("{{ session('message') }}");
+            @elseif(session('error'))
+                toastr.error("{{ session('error') }}");
+            @endif
+            $('.dropify').dropify();
+        </script>
     @yield('scripts')
 </body>
 

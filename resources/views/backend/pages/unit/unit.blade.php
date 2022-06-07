@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Admins - Admin Panel
+Admins - units
 @endsection
 
 @section('styles')
@@ -58,7 +58,7 @@ Admins - Admin Panel
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($ware_houses as $ware)
+                                @foreach($Unit as $ware)
                                 <tr>
                                     <td>{{$ware->id}}</td>
 

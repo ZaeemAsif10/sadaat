@@ -49,15 +49,20 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/password/reset/submit', 'Backend\Auth\ForgetPasswordController@reset')->name('admin.password.update');
 });
 
-
+//warehouses routes
 Route::get('/ware-houses', 'Backend\WareHouseController@WareHouse')->name('admin.warehouse');
 Route::post('/create-ware-houses', 'Backend\WareHouseController@WareHouseCreate')->name('admin.warehouse.create');
 Route::post('/update-ware-houses', 'Backend\WareHouseController@WareHouseUpdate')->name('admin.warehouse.update');
 Route::get('/delete-ware-houses/{id}', 'Backend\WareHouseController@WareHouseDelete')->name('admin.warehouse.delete');
-
+//brands routes
 Route::get('/brands', 'Backend\BrandController@Brand')->name('admin.brand');
 Route::post('/create-brand', 'Backend\BrandController@BrandStore')->name('admin.brand.create');
+Route::post('/update-brand', 'Backend\BrandController@BrandUpdate')->name('admin.brand.update');
+Route::get('/delete-brand/{id}', 'Backend\BrandController@BrandDelete')->name('admin.brand.delete');
 
+//unit routes
+Route::get('/units', 'Backend\BrandController@Brand')->name('admin.unit');
+Route::post('/create-brand', 'Backend\BrandController@BrandStore')->name('admin.brand.create');
 Route::post('/update-brand', 'Backend\BrandController@BrandUpdate')->name('admin.brand.update');
 Route::get('/delete-brand/{id}', 'Backend\BrandController@BrandDelete')->name('admin.brand.delete');
 

@@ -25,7 +25,7 @@ class WareHouseController extends Controller
         $ware = WareHouse::where('id', $request->id)->first();
         // dd($request->id)
         $ware_houses = $ware->update($request->all());
-        return back();
+        return back()->with('message','Ware house update successfully');;
     }
 
     public function WareHouseDelete(Request $request,$id)
