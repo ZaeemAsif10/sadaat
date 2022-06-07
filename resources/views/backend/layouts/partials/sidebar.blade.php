@@ -66,15 +66,15 @@
                              @endif
 
                              @if ($usr->can('admin.create'))
-                                 <li class="{{ Route::is('admin.brand') ? 'active' : '' }}"><a
-                                         href="">Customer Group</a></li>
+                                 <li class="{{ Route::is('create.customer.group') ? 'active' : '' }}"><a
+                                         href="{{ route('create.customer.group') }}">Customer Group</a></li>
                                          {{-- {{ route('admin.brand') }} --}}
                              @endif
 
                              @if ($usr->can('admin.create'))
-                             <li class="{{ Route::is('admin.brand') ? 'active' : '' }}"><a
+                             <li class="{{ Route::is('admin.unit') ? 'active' : '' }}"><a
                                      href="">Unit</a></li>
-                                     {{-- {{ route('admin.brand') }} --}}
+    
                          @endif
                          </ul>
 

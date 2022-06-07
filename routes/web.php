@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Backend\SupplierController;
+use App\Http\Controllers\Backend\CustomerGroupController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -59,6 +60,7 @@ Route::post('/create-brand', 'Backend\BrandController@BrandStore')->name('admin.
 Route::post('/update-brand', 'Backend\BrandController@BrandUpdate')->name('admin.brand.update');
 Route::get('/delete-brand/{id}', 'Backend\BrandController@BrandDelete')->name('admin.brand.delete');
 
+// Supplier Routes
 Route::get('create-supplier', [SupplierController::class, 'createSupplier'])->name('create.supplier');
 Route::get('get-supplier', [SupplierController::class, 'getSupplier'])->name('get.supplier');
 Route::post('supplier-store', [SupplierController::class, 'supplierStore'])->name('supplier.store');
@@ -67,3 +69,6 @@ Route::post('supplier-update', [SupplierController::class, 'supplierUpdate'])->n
 Route::get('supplier-delete', [SupplierController::class, 'supplierDelete'])->name('supplier.delete');
 
 
+// Customer Group Routes
+Route::get('create-customer-group', [CustomerGroupController::class, 'createCustomerGroup'])->name('create.customer.group');
+Route::get('get-customer-group', [CustomerGroupController::class, 'getCustomerGroup']);
