@@ -28,11 +28,11 @@ class WareHouseController extends Controller
         return back();
     }
 
-    public function WareHousedelete(Request $request)
+    public function WareHouseDelete(Request $request,$id)
     {
-        $ware = WareHouse::where('id', $request->id)->first();
-        // dd($request->id)
-        $ware_houses = $ware->update($request->all());
-        return back();
+        
+        $ware = WareHouse::find($id);
+       $ware->delete();
+        return back()->with('error','Delete successfully');
     }
 }
