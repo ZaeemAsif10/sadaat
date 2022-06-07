@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/ware-houses', 'Backend\WareHouseController@WareHouse')->name('admin.warehouse');
 Route::post('/create-ware-houses', 'Backend\WareHouseController@WareHouseCreate')->name('admin.warehouse.create');
 Route::post('/update-ware-houses', 'Backend\WareHouseController@WareHouseUpdate')->name('admin.warehouse.update');
-Route::get('/delete-ware-houses', 'Backend\WareHouseController@WareHouseUpdate')->name('admin.warehouse.delete');
+Route::get('/delete-ware-houses/{id}', 'Backend\WareHouseController@WareHouseDelete')->name('admin.warehouse.delete');
 
 Route::get('/brands', 'Backend\BrandController@Brand')->name('admin.brand');
 Route::post('/create-brand', 'Backend\BrandController@BrandStore')->name('admin.brand.create');
