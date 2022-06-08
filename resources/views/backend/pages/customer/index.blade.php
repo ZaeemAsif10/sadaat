@@ -49,34 +49,35 @@
                     <div class="card-body">
                         <h4 class="header-title float-left">Customer List</h4>
                         <p class="float-right mb-2">
-                            @if (Auth::guard('admin')->user()->can('admin.edit'))
-                                <button type="button" class="btn btn-primary btn-flat btn-md" data-toggle="modal"
-                                    data-target="#add_customer_modal">+ Add new
-                                </button>
-                            @endif
-                        </p>
-                        <div class="clearfix " style="margin-top: 40px;"></div>
-                        <div class="data-tables">
-                            <table id="dataTable" class="text-center supplier-table">
-                                <thead class="bg-light text-capitalize">
-                                    <tr>
-                                        <th width="5%">#</th>
-                                        <th width="5%">Customer Group</th>
-                                        <th width="5%">Name</th>
-                                        <th width="5%">Company Name</th>
-                                        <th width="5%">Address</th>
-                                        <th width="5%">City</th>
-                                        <th width="5%">Country</th>
-                                        <th width="5%">Postal Code</th>
-                                        <th width="5%">Phone</th>
-                                        <th width="5%">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="customerTable">
 
-                                </tbody>
-                            </table>
-                        </div>
+                            <button type="button" class="btn btn-primary btn-flat btn-md" data-toggle="modal"
+                                data-target="#add_customer_modal">+ Add new
+                            </button>
+
+                        </p>
+
+
+                        <table id="dataTables" class="table">
+                            <thead class="bg-light text-capitalize">
+                                <tr>
+                                    <th width="5%">#</th>
+                                    <th width="5%">Customer Group</th>
+                                    <th width="5%">Name</th>
+                                    <th width="5%">Company Name</th>
+                                    <th width="5%">Address</th>
+                                    <th width="5%">City</th>
+                                    <th width="5%">Country</th>
+                                    <th width="5%">Postal Code</th>
+                                    <th width="5%">Phone</th>
+                                    <th width="5%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customerTable">
+
+                            </tbody>
+
+                        </table>
+
                     </div>
                 </div>
             </div>
@@ -245,13 +246,12 @@
 
     <script>
         /*================================
-                                                        datatable active
-                                                        ==================================*/
-        if ($('#dataTable').length) {
-            $('#dataTable').DataTable({});
+                                                            datatable active
+                                                            ==================================*/
+        if ($('#dataTables').length) {
+            $('#dataTables').DataTable({});
         }
     </script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.getElementById('phone').addEventListener('input', function(e) {
             var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -486,7 +486,7 @@
                             success: function(response) {
 
                                 toastr.success(response.message);
-                               getCustomer();
+                                getCustomer();
                             }
                         });
                     }
