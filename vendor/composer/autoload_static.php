@@ -526,6 +526,7 @@ class ComposerStaticInit7fd243893cfe65e58046af58b33a4a33
         'App\\Http\\Controllers\\Backend\\CustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/CustomerController.php',
         'App\\Http\\Controllers\\Backend\\CustomerGroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/CustomerGroupController.php',
         'App\\Http\\Controllers\\Backend\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/DashboardController.php',
+        'App\\Http\\Controllers\\Backend\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/ProductController.php',
         'App\\Http\\Controllers\\Backend\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/RolesController.php',
         'App\\Http\\Controllers\\Backend\\SupplierController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/SupplierController.php',
         'App\\Http\\Controllers\\Backend\\UnitController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/UnitController.php',
