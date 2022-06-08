@@ -89,31 +89,41 @@
 
                         <div class="col-md-12 mt-3">
                             <label for="">Select Product </label>
-                            <select name="product" id="cus1" class="form-control">
+                            <select name="product_id" id="cus1" class="form-control select_product">
                                 <option value="" selected disabled>Choose Product</option>
-                                <option value="1">Product 1</option>
-                                <option value="2">Product 2</option>
-                                <option value="3">Product 3</option>
-                                <option value="4">Product 4</option>
+                                @foreach ($products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-12 mt-3">
-                        <table class="table ">
-                            <thead>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>Quantity</th>
+                                        <th>Net Unit Cost</th>
+                                        <th>Discount</th>
+                                        <th>Tax</th>
+                                        <th>SubTotal</th>
+                                        <th class=""><i class="fa fa-trash" aria-hidden="true"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="purchaseTable">
+
+                                </tbody>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>Quantity</th>
-                                    <th>Net Unit Cost</th>
-                                    <th>Discount</th>
-                                    <th>Tax</th>
-                                    <th>SubTotal</th>
-                                    <th class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></th>
+                                    <th>Total</th>
+                                    <td></td>
+                                    <td>0</td>
+                                    <td></td>
+                                    <td>0.00</td>
+                                    <td>0.00</td>
                                 </tr>
-                            </thead>
-                        </table>
-                    </div>
+                            </table>
+                        </div>
 
                         <div class="col-md-6 mt-3">
                             <label for="">Discount </label>
@@ -137,7 +147,7 @@
                     <table class="table mt-4 table-bordered">
                         <thead>
                             <tr>
-                                <th>Items  <span class="float-right text-secondary">0.00</span></th>
+                                <th>Items <span class="float-right text-secondary">0.00</span></th>
                                 <th>Total <span class="float-right text-secondary">0.00</span></th>
                                 <th>Order Tax <span class="float-right text-secondary">0.00</span></th>
                                 <th>Order Discount <span class="float-right text-secondary">0.00</span></th>
@@ -169,10 +179,63 @@
 
     <script>
         /*================================
-                                                                datatable active
-                                                                ==================================*/
+                                                                                                                datatable active
+                                                                                                                ==================================*/
         if ($('#dataTables').length) {
             $('#dataTables').DataTable({});
         }
+
+
+        $(document).ready(function() {
+
+            //level Two get data base on level Three
+            $('.select_product').change(function() {
+
+                var product_id = $(this).val();
+
+                $.ajax({
+
+                    type: 'ajax',
+                    method: 'get',
+                    url: '{{ url('get-product-detail') }}',
+                    data: {
+                        product_id: product_id,
+                    },
+                    success: function(data) {
+
+                        var html = '';
+                        var i;
+                        for (i = 0; i < data.length; i++) {
+
+                            html += '<tr>' +
+                                '<td style="display:none;"><input type="text" class="fff" value="' +data[i].id + '"></td> ' +
+                                '<td>' + data[i].name + '</td> ' +
+                                '<td>' + data[i].code + '</td> ' +
+                                '<td><input type="number" name="qty" id="qty" value="' +data[i].qty + '"></td> ' +
+                                '<td>' + data[i].cost + '</td> ' +
+                                '<td>0.00</td> ' +
+                                '<td></td> ' +
+                                '<td>200</td> ' +
+                                '<td class="text-danger deleteRow"><i class="fa fa-trash" aria-hidden="true"></i></td> ' +
+                                '</tr>';
+                        }
+                        $('#purchaseTable').append(html);
+
+                    },
+                    error: function() {
+                        toastr.error('db error');
+                    }
+                });
+
+
+            });
+
+            $("#purchaseTable").on('click', '.deleteRow', function() {
+                $(this).closest('tr').remove();
+            });
+
+
+
+        });
     </script>
 @endsection

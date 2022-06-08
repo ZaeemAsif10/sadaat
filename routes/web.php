@@ -101,3 +101,4 @@ Route::get('customer-delete', [CustomerController::class, 'customerDelete']);
 
 // Purchase Routes
 Route::get('create-purchase', [PurchaseController::class, 'createPurchase'])->name('create.purchase');
+Route::get('get-product-detail', [PurchaseController::class, 'getProductDetail']);
