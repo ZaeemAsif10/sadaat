@@ -113,29 +113,38 @@
                                 </thead>
                                 <tbody id="purchaseTable">
                                     <tr>
-                                        <td> <select name="product_id" id="cus1" class="form-control select_product">
+                                        <td> <select name="product_id[]" class="form-control select_product">
                                                 <option value="" selected disabled>Choose Product</option>
                                                 @foreach ($products as $product)
                                                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                                                 @endforeach
                                             </select></td>
-                                        <td><input type="text" class="form-control" name="name" placeholder="Name"></td>
-                                        <td><input type="text" class="form-control" name="code" placeholder="code"></td>
-                                        <td><input type="number" class="form-control" name="qty" placeholder="0.00"></td>
-                                        <td><input type="text" class="form-control" name="" placeholder="unit"></td>
-                                        <td><input type="number" class="form-control" name="" placeholder="0.00"></td>
-                                        <td><input type="number" class="form-control" name="" placeholder="0.00"></td>
-                                        <td><button type="button" id="addRow" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        <td><input type="text" class="form-control name" name="name" placeholder="Name">
+                                        </td>
+                                        <td><input type="number" class="form-control code" name="code" placeholder="code">
+                                        </td>
+                                        <td><input type="number" class="form-control qty" name="qty" placeholder="0.00">
+                                        </td>
+                                        <td><input type="number" class="form-control cost" name="cost" placeholder="0.00">
+                                        </td>
+                                        <td><input type="number" class="form-control discont" name="discont"
+                                                placeholder="0.00"></td>
+                                        <td><input type="number" class="form-control subtot" name="subtot"
+                                                placeholder="0.00"></td>
+                                        <td><button type="button" id="addRow" class="btn btn-success btn-sm"><i
+                                                    class="fa fa-plus" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
+
                                 <tr>
                                     <th>Total</th>
                                     <td></td>
-                                    <td>0</td>
                                     <td></td>
-                                    <td>0.00</td>
-                                    <td>0.00</td>
+                                    <td class="totQty font-weight-bold">0</td>
+                                    <td></td>
+                                    <td class="totDis font-weight-bold">0.00</td>
+                                    <td class="grand_total font-weight-bold">0.00</td>
                                 </tr>
                             </table>
                         </div>
@@ -193,12 +202,42 @@
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
 
+    <script type="text/javascript">
+        $(function() {
+            $('#addRow').on('click', function() {
+                var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
+                $("#purchaseTable").append(tr);
+            });
+        });
+    </script>
+
+    <div id="purchaseTable1" style="display: none;">
+        <table>
+            <tr>
+                <td> <select name="product_id" id="cus1" class="form-control select_product">
+                        <option value="" selected disabled>Choose Product</option>
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        @endforeach
+                    </select></td>
+                <td><input type="text" class="form-control name" name="name" placeholder="Name"></td>
+                <td><input type="number" class="form-control code" name="code" placeholder="0.00"></td>
+                <td><input type="number" class="form-control qty" name="qty" placeholder="0.00"></td>
+                <td><input type="number" class="form-control cost" name="cost" placeholder="0.00"></td>
+                <td><input type="number" class="form-control discont" name="discont" placeholder="0.00"></td>
+                <td><input type="number" class="form-control subtot" name="subtot" placeholder="0.00"></td>
+                <td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash"
+                            aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 
     <script>
         /*================================
-                                                                                                                        datatable active
-                                                                                                                        ==================================*/
+                                                                                                                                        datatable active
+                                                                                                                                        ==================================*/
         if ($('#dataTables').length) {
             $('#dataTables').DataTable({});
         }
@@ -206,35 +245,122 @@
 
         $(document).ready(function() {
 
-            $('#purchaseTable').on('click', '#addRow', function () { 
-                
-                var tr = '<tr> '+
-                            '<td> <select name="product_id" id="cus1" class="form-control select_product"> '+
-                                    '<option value="" selected disabled>Choose Product</option> '+
-                                    '@foreach ($products as $product) '+
-                                        '<option value="{{ $product->id }}">{{ $product->name }}</option> '+
-                                    '@endforeach '+
-                                '</select></td> '+
-                            '<td><input type="text" class="form-control" name="name" value="Zaeem"></td> '+
-                            '<td><input type="text" class="form-control" name="code" placeholder="code"></td>'+
-                            '<td><input type="number" class="form-control" name="qty" placeholder="0.00"></td> '+
-                            '<td><input type="text" class="form-control" name="" placeholder="unit"></td> '+
-                            '<td><input type="number" class="form-control" name="" placeholder="0.00"></td> '+
-                            '<td><input type="number" class="form-control" name="" placeholder="0.00"></td> '+
-                            '<td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button> '+
-                            '</td> '+
-                        '</tr>'
-
-                        $('#purchaseTable').append(tr);
-
-             });
-            
-
             $("#purchaseTable").on('click', '#deleteRow', function() {
+
                 $(this).closest('tr').remove();
+
+                grandTotalDecement();
+                
             });
 
 
+            $('#purchaseTable').on('change', '.select_product', function() {
+
+                var product_id = $(this).val();
+                var $currentRow = $(this).closest('tr');
+
+                $.ajax({
+
+                    type: 'ajax',
+                    method: 'get',
+                    url: '{{ url('get-product-detail') }}',
+                    data: {
+                        product_id: product_id,
+                    },
+                    async: false,
+                    dataType: 'json',
+                    success: function(data) {
+
+                        $currentRow.find('.name').val(data.name);
+                        $currentRow.find('.code').val(data.code);
+                        $currentRow.find('.cost').val(data.cost);
+
+                    },
+
+                    error: function() {
+                        toastr.error('Database error');
+                    }
+
+                });
+            });
+
+
+            $('#purchaseTable').on('keyup', '.qty', function() {
+
+                var qty = $(this).val();
+
+                var $currentRow = $(this).closest('tr');
+                var cost = $currentRow.find('.cost').val();
+                var subtotal = parseFloat(cost) * parseFloat(qty);
+                $currentRow.find('.subtot').val(subtotal);
+
+                grandTotal();
+                totalDiscont();
+                totalQty();
+
+            });
+
+            $('#purchaseTable').on('keyup', '.discont', function() {
+
+                var disc = $(this).val();
+
+                var $currentRow = $(this).closest('tr');
+                var subtotal = $currentRow.find('.subtot').val();
+                var totaldisc = parseFloat(subtotal) - parseFloat(disc);
+                $currentRow.find('.subtot').val(totaldisc);
+
+                grandTotal();
+                totalDiscont();
+                totalQty();
+
+            });
+
+            function grandTotal() {
+                var grandTotal = 0;
+                $(".subtot").each(function() {
+                    var subTotals = $(this).val();
+                    // alert(subTotals);
+                    (subTotals) ? grandTotal = parseFloat(grandTotal) + parseFloat(subTotals): '';
+
+                });
+
+                $('.grand_total').text(grandTotal);
+            }
+
+            function grandTotalDecement() {
+                var grandTotal = 0;
+                $(".subtot").each(function() {
+                    var subTotals = $(this).val();
+                    // alert(subTotals);
+                    (subTotals) ? grandTotal = parseFloat(grandTotal) - parseFloat(subTotals): '';
+                });
+
+                $('.grand_total').text(grandTotal);
+            }
+
+            function totalDiscont() {
+                var totalDisc = 0;
+                $(".discont").each(function() {
+                    var dis = $(this).val();
+                    // alert(subTotals);
+                    (dis) ? totalDisc = parseFloat(totalDisc) + parseFloat(dis): '';
+
+                });
+
+                $('.totDis').text(totalDisc);
+            }
+
+            function totalQty() {
+                var totalQty = 0;
+                $(".qty").each(function() {
+                    var qty = $(this).val();
+                    // alert(subTotals);
+                    (qty) ? totalQty = parseFloat(totalQty) + parseFloat(qty): '';
+
+                });
+
+                $('.totQty').text(totalQty);
+            }
 
         });
     </script>
