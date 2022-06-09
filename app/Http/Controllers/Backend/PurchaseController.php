@@ -20,7 +20,7 @@ class PurchaseController extends Controller
 
     public function getProductDetail(Request $request)
     {
-        $data = Product::where('id',$request->product_id)->get();
+        $data = Product::where('id',$request->product_id)->first();
         return $data;   
     }
 }

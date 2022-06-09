@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Customer
+    Add Purchase
 @endsection
 
 @section('styles')
@@ -188,7 +188,6 @@
 
         $(document).ready(function() {
 
-            //level Two get data base on level Three
             $('.select_product').change(function() {
 
                 var product_id = $(this).val();
@@ -204,26 +203,24 @@
                     success: function(data) {
 
                         var html = '';
-                        var i;
-                        for (i = 0; i < data.length; i++) {
 
                             html += '<tr>' +
-                                '<td style="display:none;"><input type="text" class="fff" value="' +data[i].id + '"></td> ' +
-                                '<td>' + data[i].name + '</td> ' +
-                                '<td>' + data[i].code + '</td> ' +
-                                '<td><input type="number" name="qty" id="qty" value="' +data[i].qty + '"></td> ' +
-                                '<td>' + data[i].cost + '</td> ' +
+                                // '<td style="display:none;"><input type="text" class="fff" value="' +data[i].id + '"></td> ' +
+                                '<td>' + data.name + '</td> ' +
+                                '<td>' + data.code + '</td> ' +
+                                '<td><input type="number" name="qty" id="qty" value="' + data.qty + '"></td> ' +
+                                '<td>' + data.cost + '</td> ' +
                                 '<td>0.00</td> ' +
                                 '<td></td> ' +
                                 '<td>200</td> ' +
                                 '<td class="text-danger deleteRow"><i class="fa fa-trash" aria-hidden="true"></i></td> ' +
                                 '</tr>';
-                        }
+                       
                         $('#purchaseTable').append(html);
 
                     },
                     error: function() {
-                        toastr.error('db error');
+                        toastr.error('Database error');
                     }
                 });
 
