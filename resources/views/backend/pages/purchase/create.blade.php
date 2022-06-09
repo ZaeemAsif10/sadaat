@@ -247,7 +247,7 @@
             $("#purchaseTable").on('click', '#deleteRow', function() {
 
                 $(this).closest('tr').remove();
-                grandTotalDecement();
+                grandTotalDecrement();
                 grandTotal();
             });
 
@@ -340,7 +340,7 @@
                 $('.all_total').text(grandTotal);
             }
 
-            function grandTotalDecement() {
+            function grandTotalDecrement() {
                 var grandTotal1 = 0;
                 $(".subtot").each(function() {
                     var subTotals1 = $(this).val();
