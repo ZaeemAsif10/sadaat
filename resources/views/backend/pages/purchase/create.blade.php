@@ -144,19 +144,19 @@
                                     <td class="totQty font-weight-bold">0</td>
                                     <td></td>
                                     <td class="totDis font-weight-bold">0.00</td>
-                                    <td class="grand_total font-weight-bold">0.00</td>
+                                    <td class="font-weight-bold grand_total">0.00</td>
                                 </tr>
                             </table>
                         </div>
 
                         <div class="col-md-6 mt-3">
                             <label for="">Discount </label>
-                            <input type="text" name="order_discount" class="form-control" required>
+                            <input type="text" name="order_discount" class="form-control order_discount" required>
                         </div>
 
                         <div class="col-md-6 mt-3">
                             <label for="">Shipping Cost </label>
-                            <input type="text" name="shipping_cost" class="form-control" required>
+                            <input type="text" name="shipping_cost" class="form-control shipping_cost" required>
                         </div>
 
                         <div class="col-md-12 mt-3">
@@ -172,11 +172,10 @@
                         <thead>
                             <tr>
                                 <th>Items <span class="float-right text-secondary">0.00</span></th>
-                                <th>Total <span class="float-right text-secondary">0.00</span></th>
-                                <th>Order Tax <span class="float-right text-secondary">0.00</span></th>
-                                <th>Order Discount <span class="float-right text-secondary">0.00</span></th>
-                                <th>Shipping Cost <span class="float-right text-secondary">0.00</span></th>
-                                <th>Grand Total <span class="float-right text-secondary">0.00</span></th>
+                                <th>Total <span class="float-right text-secondary all_total">0.00</span></th>
+                                <th>Order Discount <span class="float-right text-secondary all_disc">0.00</span></th>
+                                <th>Shipping Cost <span class="float-right text-secondary all_shipping">0.00</span></th>
+                                <th>Grand Total <span class="float-right text-secondary all_total">0.00</span></th>
                             </tr>
                         </thead>
                     </table>
@@ -236,8 +235,8 @@
 
     <script>
         /*================================
-                                                                                                                                        datatable active
-                                                                                                                                        ==================================*/
+                                                                                                                                                datatable active
+                                                                                                                                                ==================================*/
         if ($('#dataTables').length) {
             $('#dataTables').DataTable({});
         }
@@ -248,9 +247,8 @@
             $("#purchaseTable").on('click', '#deleteRow', function() {
 
                 $(this).closest('tr').remove();
-
                 grandTotalDecement();
-                
+                grandTotal();
             });
 
 
@@ -315,6 +313,20 @@
 
             });
 
+            $('.order_discount').on('keyup', function() {
+
+                var order_disc = $(this).val();
+                $('.all_disc').text(order_disc);
+
+            });
+
+            $('.shipping_cost').on('keyup', function() {
+
+                var ship_cost = $(this).val();
+                $('.all_shipping').text(ship_cost);
+
+            });
+
             function grandTotal() {
                 var grandTotal = 0;
                 $(".subtot").each(function() {
@@ -325,17 +337,18 @@
                 });
 
                 $('.grand_total').text(grandTotal);
+                $('.all_total').text(grandTotal);
             }
 
             function grandTotalDecement() {
-                var grandTotal = 0;
+                var grandTotal1 = 0;
                 $(".subtot").each(function() {
-                    var subTotals = $(this).val();
+                    var subTotals1 = $(this).val();
                     // alert(subTotals);
-                    (subTotals) ? grandTotal = parseFloat(grandTotal) - parseFloat(subTotals): '';
+                    (subTotals1) ? grandTotal1 = parseFloat(grandTotal1) - parseFloat(subTotals1): '';
                 });
 
-                $('.grand_total').text(grandTotal);
+                $('.grand_total').text(grandTotal1);
             }
 
             function totalDiscont() {
