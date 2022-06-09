@@ -87,7 +87,7 @@
                             <input type="file" name="document" class="form-control" required>
                         </div>
 
-                        <div class="col-md-12 mt-3">
+                        {{-- <div class="col-md-12 mt-3">
                             <label for="">Select Product </label>
                             <select name="product_id" id="cus1" class="form-control select_product">
                                 <option value="" selected disabled>Choose Product</option>
@@ -95,24 +95,39 @@
                                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="col-md-12 mt-3">
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>Product</th>
                                         <th>Name</th>
                                         <th>Code</th>
                                         <th>Quantity</th>
                                         <th>Net Unit Cost</th>
                                         <th>Discount</th>
-                                        <th>Tax</th>
                                         <th>SubTotal</th>
-                                        <th class=""><i class="fa fa-trash" aria-hidden="true"></i></th>
+                                        <th>ADD</th>
                                     </tr>
                                 </thead>
                                 <tbody id="purchaseTable">
-
+                                    <tr>
+                                        <td> <select name="product_id" id="cus1" class="form-control select_product">
+                                                <option value="" selected disabled>Choose Product</option>
+                                                @foreach ($products as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                @endforeach
+                                            </select></td>
+                                        <td><input type="text" class="form-control" name="name" placeholder="Name"></td>
+                                        <td><input type="text" class="form-control" name="code" placeholder="code"></td>
+                                        <td><input type="number" class="form-control" name="qty" placeholder="0.00"></td>
+                                        <td><input type="text" class="form-control" name="" placeholder="unit"></td>
+                                        <td><input type="number" class="form-control" name="" placeholder="0.00"></td>
+                                        <td><input type="number" class="form-control" name="" placeholder="0.00"></td>
+                                        <td><button type="button" id="addRow" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                                 <tr>
                                     <th>Total</th>
@@ -177,10 +192,13 @@
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
+
+
+
     <script>
         /*================================
-                                                                                                                datatable active
-                                                                                                                ==================================*/
+                                                                                                                        datatable active
+                                                                                                                        ==================================*/
         if ($('#dataTables').length) {
             $('#dataTables').DataTable({});
         }
@@ -188,46 +206,31 @@
 
         $(document).ready(function() {
 
-            $('.select_product').change(function() {
+            $('#purchaseTable').on('click', '#addRow', function () { 
+                
+                var tr = '<tr> '+
+                            '<td> <select name="product_id" id="cus1" class="form-control select_product"> '+
+                                    '<option value="" selected disabled>Choose Product</option> '+
+                                    '@foreach ($products as $product) '+
+                                        '<option value="{{ $product->id }}">{{ $product->name }}</option> '+
+                                    '@endforeach '+
+                                '</select></td> '+
+                            '<td><input type="text" class="form-control" name="name" value="Zaeem"></td> '+
+                            '<td><input type="text" class="form-control" name="code" placeholder="code"></td>'+
+                            '<td><input type="number" class="form-control" name="qty" placeholder="0.00"></td> '+
+                            '<td><input type="text" class="form-control" name="" placeholder="unit"></td> '+
+                            '<td><input type="number" class="form-control" name="" placeholder="0.00"></td> '+
+                            '<td><input type="number" class="form-control" name="" placeholder="0.00"></td> '+
+                            '<td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button> '+
+                            '</td> '+
+                        '</tr>'
 
-                var product_id = $(this).val();
+                        $('#purchaseTable').append(tr);
 
-                $.ajax({
+             });
+            
 
-                    type: 'ajax',
-                    method: 'get',
-                    url: '{{ url('get-product-detail') }}',
-                    data: {
-                        product_id: product_id,
-                    },
-                    success: function(data) {
-
-                        var html = '';
-
-                            html += '<tr>' +
-                                // '<td style="display:none;"><input type="text" class="fff" value="' +data[i].id + '"></td> ' +
-                                '<td>' + data.name + '</td> ' +
-                                '<td>' + data.code + '</td> ' +
-                                '<td><input type="number" name="qty" id="qty" value="' + data.qty + '"></td> ' +
-                                '<td>' + data.cost + '</td> ' +
-                                '<td>0.00</td> ' +
-                                '<td></td> ' +
-                                '<td>200</td> ' +
-                                '<td class="text-danger deleteRow"><i class="fa fa-trash" aria-hidden="true"></i></td> ' +
-                                '</tr>';
-                       
-                        $('#purchaseTable').append(html);
-
-                    },
-                    error: function() {
-                        toastr.error('Database error');
-                    }
-                });
-
-
-            });
-
-            $("#purchaseTable").on('click', '.deleteRow', function() {
+            $("#purchaseTable").on('click', '#deleteRow', function() {
                 $(this).closest('tr').remove();
             });
 
