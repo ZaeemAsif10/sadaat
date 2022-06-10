@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="{{ asset('backend/assets/css/styles.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/assets/css/responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/assets/css/toastr.css') }}">
+<link rel="stylesheet" type="text/css" href="{{asset('backend/assets/dropify/css/dropify.min.css') }}">
+
      <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/sweetalert2.min.css') }}">
 
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles">

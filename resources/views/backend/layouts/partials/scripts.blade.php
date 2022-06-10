@@ -8,6 +8,8 @@
 <script src="{{ asset('backend/assets/js/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('backend/assets/js/jquery.slicknav.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/sweetalert.min.js') }}"></script>
+<script src="{{asset('backend/assets/dropify/js/dropify.min.js') }}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 <!-- start chart js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>

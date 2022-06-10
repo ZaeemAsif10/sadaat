@@ -91,20 +91,18 @@ Admins - Admin Panel
                                                         <input type="hidden" class="form-control" id="id" name="id" placeholder="Enter Name" value="{{$ware->id}}">
 
                                                         <div class="form-row">
-                                                            <div class="form-group col-md-6 col-sm-12">
+                                                            <div class="form-group col-md-12 col-sm-12">
                                                                 <label for="wareh_name">Catagory Name</label>
                                                                 <input type="text" required class="form-control" id="catagory_name" required name="catagory_name"  value="{{$ware->catagory_name}}" placeholder="Enter Brand Name">
                                                             </div>
-                                                            <div class="form-group col-md-6 col-sm-12">
-                                                                <label for="image"> Catagory Image</label>
-                                                                <input type="file" required class="form-control" required id="catagory_img" name="catagory_img" placeholder="Enter Brand Image">
-                                                            </div>
+                                                            
                                                         </div>
 
                                                         <div class="row text-center">
                                                         <div class="w-100"><h6 class="text-center #badge badge-primary"> Catagory Image</h6></div>
                                                             <div class="col-md-12">
-                                                                <img src="{{ asset('storage/app/public/uploads/catagory/'.$ware->catagory_img) }}" width="50%">
+                                                                <input type="file" id="MemberImage" name="catagory_img" class="dropify" data-default-file="{{ asset('storage/app/public/uploads/catagory/'.$ware->catagory_img) }}" data-height="230" />
+
                                                             </div>
                                                         </div>
 
@@ -145,13 +143,13 @@ Admins - Admin Panel
                 <form action="{{ route('admin.catagory.create') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12">
+                        <div class="form-group col-md-12 col-sm-12">
                             <label for="catagory_name">Catagory Name</label>
                             <input type="text" required class="form-control" id="catagory_name" name="catagory_name" placeholder="Enter Brand Name">
                         </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="catagory_img"> Catagory Image</label>
-                            <input type="file"  class="form-control" id="catagory_img" name="catagory_img" placeholder="Enter Brand Image">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label for="catagory_img"> Upload Catagory Image</label>
+                            <input type="file" id="MemberImage" name="catagory_img" class="dropify" data-default-file="Add Catagory Image" data-height="230" />
                         </div>
                     </div>
 

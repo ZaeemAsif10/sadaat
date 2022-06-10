@@ -17,7 +17,7 @@ class WareHouseController extends Controller
     public function WareHouseCreate(Request $request)
     {
         $ware_houses = WareHouse::create($request->all());
-        return back();
+        return back()->with('message','Ware house update successfully');;;
     }
 
     public function WareHouseUpdate(Request $request)

@@ -100,14 +100,20 @@
                          </li>
                      @endif
 
-                     @if ($usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete') || $usr->can('admin.create') || $usr->can('admin.view') || $usr->can('admin.edit') || $usr->can('admin.catagory'))
+                     @if ($usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete') || $usr->can('admin.create') || $usr->can('admin.view') || $usr->can('admin.edit') )
                          <li>
                              <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-tasks"></i><span> Product </span></a>
-                                     <ul class="collapse {{ Route::is('admin.roles.create') || Route::is('admin.roles.index') || Route::is('admin.roles.edit') || Route::is('admin.roles.show') ? 'in' : '' }}">
+                                     <ul class="collapse {{Route::is('admin.product') || Route::is('admin.roles.create') ||Route::is('admin.catagory') || Route::is('admin.roles.index') || Route::is('admin.roles.edit') || Route::is('admin.roles.show') ? 'in' : '' }}">
 
                                  @if ($usr->can('admin.create'))
+                                 <li class="{{ Route::is('admin.product') ? 'active' : '' }}"><a
+                                             href="{{ route('admin.product') }}">Products</a></li>
+
+                                             
                                      <li class="{{ Route::is('admin.catagory') ? 'active' : '' }}"><a
                                              href="{{ route('admin.catagory') }}">Catagory</a></li>
+
+                                         
                                  @endif
                              </ul>
 

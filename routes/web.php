@@ -65,11 +65,19 @@ Route::get('/units', 'Backend\UnitController@Unit')->name('admin.unit');
 Route::post('/create-units', 'Backend\UnitController@UnitStore')->name('admin.unit.create');
 Route::post('/update-unit', 'Backend\UnitController@UnitUpdate')->name('admin.unit.update');
 Route::get('/delete-unit/{id}', 'Backend\UnitController@UnitDelete')->name('admin.unit.delete');
+//catagory routes
 
 Route::get('/catagories', 'Backend\CatagoryController@Catagory')->name('admin.catagory');
 Route::post('/create-catagory', 'Backend\CatagoryController@CatagoryStore')->name('admin.catagory.create');
 Route::post('/update-catagory', 'Backend\CatagoryController@CatagoryUpdate')->name('admin.catagory.update');
 Route::get('/delete-catagory/{id}', 'Backend\CatagoryController@CatagoryDelete')->name('admin.catagory.delete');
+
+//product routes
+Route::get('/products', 'Backend\ProductController@Product')->name('admin.product');
+Route::post('/create-product', 'Backend\ProductController@ProductStore')->name('admin.product.create');
+Route::post('/update-product', 'Backend\ProductController@ProductUpdate')->name('admin.product.update');
+Route::get('/delete-product/{id}', 'Backend\ProductController@ProductDelete')->name('admin.product.delete');
+
 
 // Supplier Routes
 Route::get('create-supplier', [SupplierController::class, 'createSupplier'])->name('create.supplier');
