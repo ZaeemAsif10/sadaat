@@ -16,8 +16,10 @@
 <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/dropify/css/dropify.min.css') }}">
 
      <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/sweetalert2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/sweetalert2.min.css') }}">
 
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles">
 
 <!-- modernizr css -->
 <script src="{{ asset('backend/assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" crossorigin="anonymous" />

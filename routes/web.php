@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\CustomerGroupController;
 use App\Http\Controllers\Backend\CustomerController;
+use App\Http\Controllers\Backend\PurchaseController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -104,3 +105,8 @@ Route::post('customer-store', [CustomerController::class, 'customerStore']);
 Route::get('customer-edit', [CustomerController::class, 'customerEdit']);
 Route::post('customer-update', [CustomerController::class, 'customerUpdate']);
 Route::get('customer-delete', [CustomerController::class, 'customerDelete']);
+
+
+// Purchase Routes
+Route::get('create-purchase', [PurchaseController::class, 'createPurchase'])->name('create.purchase');
+Route::get('get-product-detail', [PurchaseController::class, 'getProductDetail']);
