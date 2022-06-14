@@ -48,7 +48,8 @@
 
     <div class="main-content-inner">
         <!-- data table start -->
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="{{route('store.purchase')}}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="card mt-5">
                 <div class="card-body">
                     <h4 class="">Add Purchase</h4>
@@ -87,16 +88,6 @@
                             <input type="file" name="document" class="form-control" required>
                         </div>
 
-                        {{-- <div class="col-md-12 mt-3">
-                            <label for="">Select Product </label>
-                            <select name="product_id" id="cus1" class="form-control select_product">
-                                <option value="" selected disabled>Choose Product</option>
-                                @foreach ($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-
                         <div class="col-md-12 mt-3">
                             <table class="table">
                                 <thead>
@@ -116,14 +107,14 @@
                                         <td> <select name="product_id[]" class="form-control select_product">
                                                 <option value="" selected disabled>Choose Product</option>
                                                 @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                    <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                                                 @endforeach
                                             </select></td>
                                         <td><input type="text" class="form-control name" name="name" placeholder="Name">
                                         </td>
-                                        <td><input type="number" class="form-control code" name="code" placeholder="code">
+                                        <td><input type="text" class="form-control code" name="code" placeholder="code">
                                         </td>
-                                        <td><input type="number" class="form-control qty" name="qty" placeholder="0.00">
+                                        <td><input type="text" class="form-control qty" name="qty" placeholder="0.00">
                                         </td>
                                         <td><input type="number" class="form-control cost" name="cost" placeholder="0.00">
                                         </td>
@@ -171,7 +162,8 @@
                     <table class="table mt-4 table-bordered">
                         <thead>
                             <tr>
-                                <th>Items <span class="float-right text-secondary">0.00</span></th>
+<input type="text" class="Total_quantity">
+                                <th>Items <span class="float-right text-secondary number_item">1</span></th>
                                 <th>Total <span class="float-right text-secondary all_total">0.00</span></th>
                                 <th>Order Discount <span class="float-right text-secondary all_disc">0.00</span></th>
                                 <th>Shipping Cost <span class="float-right text-secondary all_shipping">0.00</span></th>
@@ -201,30 +193,23 @@
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
 
-    <script type="text/javascript">
-        $(function() {
-            $('#addRow').on('click', function() {
-                var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
-                $("#purchaseTable").append(tr);
-            });
-        });
-    </script>
+   
 
     <div id="purchaseTable1" style="display: none;">
         <table>
             <tr>
-                <td> <select name="product_id" id="cus1" class="form-control select_product">
+                <td> <select name="product_id[]" id="cus1" class="form-control select_product">
                         <option value="" selected disabled>Choose Product</option>
                         @foreach ($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                         @endforeach
                     </select></td>
-                <td><input type="text" class="form-control name" name="name" placeholder="Name"></td>
-                <td><input type="number" class="form-control code" name="code" placeholder="0.00"></td>
-                <td><input type="number" class="form-control qty" name="qty" placeholder="0.00"></td>
-                <td><input type="number" class="form-control cost" name="cost" placeholder="0.00"></td>
-                <td><input type="number" class="form-control discont" name="discont" placeholder="0.00"></td>
-                <td><input type="number" class="form-control subtot" name="subtot" placeholder="0.00"></td>
+                <td><input type="text" class="form-control name" name="product_name" placeholder="Name"></td>
+                <td><input type="text" class="form-control code" name="product_code" placeholder="0.00"></td>
+                <td><input type="number" class="form-control qty" name="product_qty" placeholder="0.00"></td>
+                <td><input type="text" class="form-control cost" name="product_cost" placeholder="0.00"></td>
+                <td><input type="number" class="form-control discont" name="product_discont" placeholder="0.00"></td>
+                <td><input type="number" class="form-control subtot" name="product_subtot" placeholder="0.00"></td>
                 <td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash"
                             aria-hidden="true"></i></button>
                 </td>
@@ -232,7 +217,9 @@
         </table>
     </div>
 
-
+    <script type="text/javascript">
+ 
+</script>
     <script>
         /*================================
                                                                                                                                                 datatable active
@@ -244,13 +231,7 @@
 
         $(document).ready(function() {
 
-            $("#purchaseTable").on('click', '#deleteRow', function() {
-
-                $(this).closest('tr').remove();
-                grandTotalDecrement();
-                grandTotal();
-            });
-
+       
 
             $('#purchaseTable').on('change', '.select_product', function() {
 
@@ -268,11 +249,9 @@
                     async: false,
                     dataType: 'json',
                     success: function(data) {
-
-                        $currentRow.find('.name').val(data.name);
-                        $currentRow.find('.code').val(data.code);
-                        $currentRow.find('.cost').val(data.cost);
-
+                        $currentRow.find('.name').val(data.product_name);
+                        $currentRow.find('.code').val(data.product_code);
+                        $currentRow.find('.cost').val(data.product_unit);
                     },
 
                     error: function() {
@@ -291,10 +270,10 @@
                 var cost = $currentRow.find('.cost').val();
                 var subtotal = parseFloat(cost) * parseFloat(qty);
                 $currentRow.find('.subtot').val(subtotal);
-
                 grandTotal();
                 totalDiscont();
                 totalQty();
+
 
             });
 
@@ -361,6 +340,9 @@
                 });
 
                 $('.totDis').text(totalDisc);
+                $('.Total_quantity').val(totalDisc);
+
+            
             }
 
             function totalQty() {
@@ -373,7 +355,51 @@
                 });
 
                 $('.totQty').text(totalQty);
+                $('.Total_quantity').val(totalQty);
+
+                
             }
+
+
+            function MinustotalQty() {
+                var totalQty = 0;
+                $(".qty").each(function() {
+                    var qty = $(this).val();
+                    // alert(subTotals);
+                    (qty) ? totalQty = parseFloat(totalQty) - parseFloat(qty): '';
+
+                });
+
+                $('.totQty').text(totalQty);
+                $('.Total_quantity').val(totalQty);
+
+                
+            }
+
+            var x = 1; //Initial field counter is 1
+
+//Once add button is clicked
+
+
+$('#addRow').on('click', function() {
+    var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
+    $("#purchaseTable").append(tr);
+
+    $('.number_item').text(++x);
+});
+
+
+
+$("#purchaseTable").on('click', '#deleteRow', function() {
+    
+    $('.number_item').text(--x);
+
+    $(this).closest('tr').remove();
+    grandTotalDecrement();
+    grandTotal();
+    MinustotalQty();
+    totalQty();
+});
 
         });
     </script>

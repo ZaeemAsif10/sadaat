@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('warehouse_id');
-            $table->integer('supplier_id');
             $table->integer('item');
             $table->double('total_qty');
             $table->double('total_discount');

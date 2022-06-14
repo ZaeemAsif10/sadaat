@@ -79,6 +79,12 @@ Route::post('/create-product', 'Backend\ProductController@ProductStore')->name('
 Route::post('/update-product', 'Backend\ProductController@ProductUpdate')->name('admin.product.update');
 Route::get('/delete-product/{id}', 'Backend\ProductController@ProductDelete')->name('admin.product.delete');
 
+//sale routes
+Route::get('/sales', 'Backend\SaleController@Sale')->name('admin.sale');
+Route::post('/create-product', 'Backend\ProductController@ProductStore')->name('admin.product.create');
+Route::post('/update-product', 'Backend\ProductController@ProductUpdate')->name('admin.product.update');
+Route::get('/delete-product/{id}', 'Backend\ProductController@ProductDelete')->name('admin.product.delete');
+
 
 // Supplier Routes
 Route::get('create-supplier', [SupplierController::class, 'createSupplier'])->name('create.supplier');
@@ -109,4 +115,6 @@ Route::get('customer-delete', [CustomerController::class, 'customerDelete']);
 
 // Purchase Routes
 Route::get('create-purchase', [PurchaseController::class, 'createPurchase'])->name('create.purchase');
+Route::post('store-purchase', [PurchaseController::class, 'StorPurchaser'])->name('store.purchase');
+
 Route::get('get-product-detail', [PurchaseController::class, 'getProductDetail']);
