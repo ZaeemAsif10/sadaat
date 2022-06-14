@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
+
+
 Auth::routes();
 
 Route::get('/', 'HomeController@redirectAdmin')->name('index');

@@ -48,7 +48,7 @@
 
     <div class="main-content-inner">
         <!-- data table start -->
-        <form action="{{route('store.purchase')}}" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card mt-5">
                 <div class="card-body">
@@ -107,7 +107,8 @@
                                         <td> <select name="product_id[]" class="form-control select_product">
                                                 <option value="" selected disabled>Choose Product</option>
                                                 @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                                                    <option value="{{ $product->id }}">{{ $product->product_name }}
+                                                    </option>
                                                 @endforeach
                                             </select></td>
                                         <td><input type="text" class="form-control name" name="name" placeholder="Name">
@@ -162,22 +163,28 @@
                     <table class="table mt-4 table-bordered">
                         <thead>
                             <tr>
-<input type="text" class="Total_quantity">
-                                <th>Items <span class="float-right text-secondary number_item">1</span></th>
+                                <input type="hidden" class="Total_quantity" name="total_qty">
+                                <th>Items <span class="float-right text-secondary number_item">1</span>
+                                    <input type="text" class="number_item2" value="1">
+                                </th>
                                 <th>Total <span class="float-right text-secondary all_total">0.00</span></th>
-                                <th>Order Discount <span class="float-right text-secondary all_disc">0.00</span></th>
-                                <th>Shipping Cost <span class="float-right text-secondary all_shipping">0.00</span></th>
-                                <th>Grand Total <span class="float-right text-secondary all_total">0.00</span></th>
+                                <th>Order Discount <span class="float-right text-secondary all_disc">0.00</span>
+                                    <input type="text" class="all_disc">
+                                </th>
+                                <th>Shipping Cost <span class="float-right text-secondary all_shipping">0.00</span>
+                                    <input type="text" class="all_shipping">
+                                </th>
+                                <th>Grand Total <span class="float-right text-secondary all_total">0.00</span>
+                                    <input type="text" class="all_total">
+                                </th>
                             </tr>
                         </thead>
                     </table>
 
                 </div>
             </div>
-        </form>
 
         <!-- data table end -->
-
 
     </div>
 @endsection
@@ -193,7 +200,7 @@
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
 
-   
+
 
     <div id="purchaseTable1" style="display: none;">
         <table>
@@ -217,21 +224,19 @@
         </table>
     </div>
 
-    <script type="text/javascript">
- 
-</script>
+</form>
+
+    <script type="text/javascript"></script>
     <script>
         /*================================
-                                                                                                                                                datatable active
-                                                                                                                                                ==================================*/
+                                                                                                                                                    datatable active
+                                                                                                                                                    ==================================*/
         if ($('#dataTables').length) {
             $('#dataTables').DataTable({});
         }
 
 
         $(document).ready(function() {
-
-       
 
             $('#purchaseTable').on('change', '.select_product', function() {
 
@@ -296,6 +301,7 @@
 
                 var order_disc = $(this).val();
                 $('.all_disc').text(order_disc);
+                $('.all_disc').val(order_disc);
 
             });
 
@@ -303,6 +309,7 @@
 
                 var ship_cost = $(this).val();
                 $('.all_shipping').text(ship_cost);
+                $('.all_shipping').val(ship_cost);
 
             });
 
@@ -317,6 +324,7 @@
 
                 $('.grand_total').text(grandTotal);
                 $('.all_total').text(grandTotal);
+                $('.all_total').val(grandTotal);
             }
 
             function grandTotalDecrement() {
@@ -341,8 +349,6 @@
 
                 $('.totDis').text(totalDisc);
                 $('.Total_quantity').val(totalDisc);
-
-            
             }
 
             function totalQty() {
@@ -357,7 +363,7 @@
                 $('.totQty').text(totalQty);
                 $('.Total_quantity').val(totalQty);
 
-                
+
             }
 
 
@@ -371,35 +377,37 @@
                 });
 
                 $('.totQty').text(totalQty);
-                $('.Total_quantity').val(totalQty);
-
-                
             }
 
             var x = 1; //Initial field counter is 1
 
-//Once add button is clicked
+            //Once add button is clicked
+
+            var y = 1; //Initial field counter is 1
+
+            $('#addRow').on('click', function() {
+                var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
+                $("#purchaseTable").append(tr);
+
+                $('.number_item').text(++x);
+                $('.number_item2').val(++y);
+                
+            });
 
 
-$('#addRow').on('click', function() {
-    var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
-    $("#purchaseTable").append(tr);
 
-    $('.number_item').text(++x);
-});
+            $("#purchaseTable").on('click', '#deleteRow', function() {
 
+                $('.number_item').text(--x);
+                $('.number_item2').val(--y);
 
-
-$("#purchaseTable").on('click', '#deleteRow', function() {
-    
-    $('.number_item').text(--x);
-
-    $(this).closest('tr').remove();
-    grandTotalDecrement();
-    grandTotal();
-    MinustotalQty();
-    totalQty();
-});
+                $(this).closest('tr').remove();
+                grandTotalDecrement();
+                grandTotal();
+                MinustotalQty();
+                totalDiscont();
+                totalQty();
+            });
 
         });
     </script>
