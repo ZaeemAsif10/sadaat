@@ -27,21 +27,5 @@ class PurchaseController extends Controller
     }
 
 
-    public function StorPurchaser(Request $request){
-        $size = count($request->get('product_id'));
-        for ($i = 0; $i < $size; $i++)
-        {
-            $subJob = new Purchase();
-            $subJob->user_id = Auth::user()->id;
-            $subJob->warehouse_id = $request->warehouse_id;
-            $subJob->item = $size;
-            $subJob->name = $request->get('name')[$i];
-            $subJob->size = $request->get('size')[$i];
-            $subJob->medium = $request->get('medium')[$i];
-            $subJob->feature = $request->get('feature')[$i];
-            $subJob->qty = $request->get('qty')[$i];
-            $subJob->price = $request->get('price')[$i];
-            $subJob->total = $request->get('qty')[$i] * $request->get('price')[$i];
-            $subJob->save();
-        }    }
+ 
 }
