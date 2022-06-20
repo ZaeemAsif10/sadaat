@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
+
+
 Auth::routes();
 
 Route::get('/', 'HomeController@redirectAdmin')->name('index');
@@ -117,7 +119,8 @@ Route::get('customer-delete', [CustomerController::class, 'customerDelete']);
 
 
 // Purchase Routes
+Route::get('purchase', [PurchaseController::class, 'index'])->name('purchase');
 Route::get('create-purchase', [PurchaseController::class, 'createPurchase'])->name('create.purchase');
-Route::post('store-purchase', [PurchaseController::class, 'StorPurchaser'])->name('store.purchase');
+Route::post('store-purchase', [PurchaseController::class, 'storPurchase']);
 
 Route::get('get-product-detail', [PurchaseController::class, 'getProductDetail']);

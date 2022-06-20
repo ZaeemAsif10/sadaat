@@ -129,7 +129,7 @@
                                      <ul class="collapse {{ Route::is('admin.roles.create') || Route::is('admin.roles.index') || Route::is('admin.roles.edit') || Route::is('admin.roles.show') ? 'in' : '' }}">
 
                                  @if ($usr->can('admin.create'))
-                                     <li class="{{ Route::is('create.purchase') ? 'active' : '' }}"><a href="{{ route('create.purchase') }}">Add Purchase</a></li>
+                                     <li class="{{ Route::is('purchase') ? 'active' : '' }}"><a href="{{ route('purchase') }}"> Purchase</a></li>
                                  @endif
                              </ul>
 

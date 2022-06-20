@@ -35,7 +35,7 @@
                     <h5 class="page-title pull-left">Add Purchase</h5>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><span>Add Purchase</span></li>
+                        <li><span>Add Sale</span></li>
                     </ul>
                 </div>
             </div>
@@ -48,11 +48,11 @@
 
     <div class="main-content-inner">
         <!-- data table start -->
-        <form action="{{route('store.purchase')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ url('store-purchase') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card mt-5">
                 <div class="card-body">
-                    <h4 class="">Add Purchase</h4>
+                    <h4 class="">Add PUrchase</h4>
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <label for="">Warehouse </label>
@@ -73,8 +73,8 @@
                             </select>
                         </div>
                         <div class="col-md-6 mt-3">
-                            <label for="">Purchase Status </label>
-                            <select name="supplier_id" id="cus1" class="form-control">
+                            <label for="">Payment Status </label>
+                            <select name="payment_status" id="cus1" class="form-control">
                                 <option value="" selected disabled>Choose Status</option>
                                 <option value="1">Received</option>
                                 <option value="2">Partial</option>
@@ -97,7 +97,6 @@
                                         <th>Code</th>
                                         <th>Quantity</th>
                                         <th>Net Unit Cost</th>
-                                        <th>Discount</th>
                                         <th>SubTotal</th>
                                         <th>ADD</th>
                                     </tr>
@@ -107,25 +106,27 @@
                                         <td> <select name="product_id[]" class="form-control select_product">
                                                 <option value="" selected disabled>Choose Product</option>
                                                 @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                                                    <option value="{{ $product->id }}">{{ $product->product_name }}
+                                                    </option>
                                                 @endforeach
                                             </select></td>
-                                        <td><input type="text" class="form-control name" name="name" placeholder="Name">
+                                        <td><input type="text" class="form-control name" name="name[]" placeholder="Name">
                                         </td>
-                                        <td><input type="text" class="form-control code" name="code" placeholder="code">
+                                        <td><input type="text" class="form-control code" name="code[]" placeholder="code">
                                         </td>
-                                        <td><input type="text" class="form-control qty" name="qty" placeholder="0.00">
+                                        <td><input type="text" class="form-control qty" name="qty[]" placeholder="0.00">
                                         </td>
-                                        <td><input type="number" class="form-control cost" name="cost" placeholder="0.00">
+                                        <td><input type="number" class="form-control cost" name="net_unit_cost[]" placeholder="0.00" readonly>
                                         </td>
-                                        <td><input type="number" class="form-control discont" name="discont"
-                                                placeholder="0.00"></td>
-                                        <td><input type="number" class="form-control subtot" name="subtot"
-                                                placeholder="0.00"></td>
+                                        {{-- <td><input type="number" class="form-control discont" name="discont[]"
+                                                placeholder="0.00"></td> --}}
+                                        <td><input type="number" class="form-control subtot" name="total[]"
+                                                placeholder="0.00" readonly></td>
                                         <td><button type="button" id="addRow" class="btn btn-success btn-sm"><i
                                                     class="fa fa-plus" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
+                                    
                                 </tbody>
 
                                 <tr>
@@ -134,14 +135,13 @@
                                     <td></td>
                                     <td class="totQty font-weight-bold">0</td>
                                     <td></td>
-                                    <td class="totDis font-weight-bold">0.00</td>
                                     <td class="font-weight-bold grand_total">0.00</td>
                                 </tr>
                             </table>
                         </div>
 
                         <div class="col-md-6 mt-3">
-                            <label for="">Discount </label>
+                            <label for="">Order Discount </label>
                             <input type="text" name="order_discount" class="form-control order_discount" required>
                         </div>
 
@@ -152,7 +152,7 @@
 
                         <div class="col-md-12 mt-3">
                             <label for="">Note </label>
-                            <textarea name="note" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="note" cols="30" rows="5" class="form-control" required></textarea>
                         </div>
                         <div class="col-md-12 mt-3">
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -162,12 +162,23 @@
                     <table class="table mt-4 table-bordered">
                         <thead>
                             <tr>
-<input type="text" class="Total_quantity">
-                                <th>Items <span class="float-right text-secondary number_item">1</span></th>
-                                <th>Total <span class="float-right text-secondary all_total">0.00</span></th>
-                                <th>Order Discount <span class="float-right text-secondary all_disc">0.00</span></th>
-                                <th>Shipping Cost <span class="float-right text-secondary all_shipping">0.00</span></th>
-                                <th>Grand Total <span class="float-right text-secondary all_total">0.00</span></th>
+                                <input type="hidden" name="total_qty" class="Total_quantity">
+                                <th>Items <span class="float-right text-secondary number_item">1</span>
+                                <input type="hidden" name="item" class="number_item" value="1">
+                                </th>
+                                <th>Total <span class="float-right text-secondary all_total">0.00</span>
+                                <input type="hidden" name="total_cost" class="all_total">
+                                </th>
+                                <th>Order Discount <span class="float-right text-secondary all_disc">0.00</span>
+                                <input type="hidden" name="order_discount" class="all_disc">
+                                </th>
+                                <th>Shipping Cost <span class="float-right text-secondary all_shipping">0.00</span>
+                                <input type="hidden" name="shipping_cost" class="all_shipping">
+                                </th>
+                                <th>Grand Total <span class="float-right text-secondary all_total granddsocount"
+                                        i>0.00</span>
+                                        <input type="hidden" name="grand_total" class="all_total granddsocount"></th>
+                                {{-- <input type="text" name="grand_total" class="all_total granddsocount"> --}}
                             </tr>
                         </thead>
                     </table>
@@ -193,7 +204,7 @@
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
 
-   
+
 
     <div id="purchaseTable1" style="display: none;">
         <table>
@@ -204,34 +215,28 @@
                             <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                         @endforeach
                     </select></td>
-                <td><input type="text" class="form-control name" name="product_name" placeholder="Name"></td>
-                <td><input type="text" class="form-control code" name="product_code" placeholder="0.00"></td>
-                <td><input type="number" class="form-control qty" name="product_qty" placeholder="0.00"></td>
-                <td><input type="text" class="form-control cost" name="product_cost" placeholder="0.00"></td>
-                <td><input type="number" class="form-control discont" name="product_discont" placeholder="0.00"></td>
-                <td><input type="number" class="form-control subtot" name="product_subtot" placeholder="0.00"></td>
+                <td><input type="text" class="form-control name" name="name[]" placeholder="Name"></td>
+                <td><input type="text" class="form-control code" name="code[]" placeholder="0.00"></td>
+                <td><input type="number" class="form-control qty" name="qty[]" placeholder="0.00"></td>
+                <td><input type="text" class="form-control cost" name="net_unit_cost[]" placeholder="0.00" readonly></td>
+                {{-- <td><input type="number" class="form-control discont" name="product_discont" placeholder="0.00"></td> --}}
+                <td><input type="number" class="form-control subtot" name="total[]" placeholder="0.00" readonly></td>
                 <td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash"
                             aria-hidden="true"></i></button>
                 </td>
             </tr>
         </table>
     </div>
+    <!-- Button trigger modal -->
 
-    <script type="text/javascript">
- 
-</script>
+
+
+    <script type="text/javascript"></script>
     <script>
-        /*================================
-                                                                                                                                                datatable active
-                                                                                                                                                ==================================*/
-        if ($('#dataTables').length) {
-            $('#dataTables').DataTable({});
-        }
-
 
         $(document).ready(function() {
 
-       
+
 
             $('#purchaseTable').on('change', '.select_product', function() {
 
@@ -277,25 +282,49 @@
 
             });
 
-            $('#purchaseTable').on('keyup', '.discont', function() {
+            // $('#purchaseTable').on('change', '.discont', function() {
 
-                var disc = $(this).val();
 
-                var $currentRow = $(this).closest('tr');
-                var subtotal = $currentRow.find('.subtot').val();
-                var totaldisc = parseFloat(subtotal) - parseFloat(disc);
-                $currentRow.find('.subtot').val(totaldisc);
+            //     var $currentRow = $(this).closest('tr');
+            //     var disc = $currentRow.find('.discont').val();
+            //     var subtotal = $currentRow.find('.subtot').val();
 
-                grandTotal();
-                totalDiscont();
-                totalQty();
+            //     var main1 = (disc / 100).toFixed(2);
 
-            });
+            //     var mult1 = subtotal * main1;
+
+            //     var totaldisc1 = parseFloat(subtotal) - parseFloat(mult1);
+
+
+            //     $currentRow.find('.subtot').val(totaldisc1);
+            //     grandTotal();
+
+            // });
 
             $('.order_discount').on('keyup', function() {
 
                 var order_disc = $(this).val();
+                var a = $('.grand_total').text();
+                var a = $('.grand_total').val();
+
+                var main = (order_disc / 100).toFixed(2);
+
+                var mult = a * main;
+
+                var totaldisc = a - mult;
+
+                if (order_disc == "") {
+                    $('.all_total').text(a);
+                    $('.all_total').val(a);
+
+                } else {
+                    var a = $('.granddsocount').text(totaldisc);
+                    var a = $('.granddsocount').val(totaldisc);
+
+                }
+
                 $('.all_disc').text(order_disc);
+                $('.all_disc').val(order_disc);
 
             });
 
@@ -303,6 +332,7 @@
 
                 var ship_cost = $(this).val();
                 $('.all_shipping').text(ship_cost);
+                $('.all_shipping').val(ship_cost);
 
             });
 
@@ -317,6 +347,9 @@
 
                 $('.grand_total').text(grandTotal);
                 $('.all_total').text(grandTotal);
+                $('.all_total').val(grandTotal);
+                $('.grand_total').val(grandTotal);
+
             }
 
             function grandTotalDecrement() {
@@ -341,7 +374,7 @@
 
                 $('.totDis').text(totalDisc);
 
-            
+
             }
 
             function totalQty() {
@@ -356,7 +389,7 @@
                 $('.totQty').text(totalQty);
                 $('.Total_quantity').val(totalQty);
 
-                
+
             }
 
 
@@ -372,26 +405,27 @@
                 $('.totQty').text(totalQty);
                 $('.Total_quantity').val(totalQty);
 
-                
+
             }
 
             var x = 1; //Initial field counter is 1
+            var y = 1; //Initial field counter is 1
 
-//Once add button is clicked
-
-
-$('#addRow').on('click', function() {
-    var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
-    $("#purchaseTable").append(tr);
-
-    $('.number_item').text(++x);
-});
+            //Once add button is clicked
 
 
+            $('#addRow').on('click', function() {
+                var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
+                $("#purchaseTable").append(tr);
 
-$("#purchaseTable").on('click', '#deleteRow', function() {
-    
-    $('.number_item').text(--x);
+                $('.number_item').text(++x);
+                $('.number_item').val(++y);
+                $('.order_discount').val('0');
+            });
+
+
+
+            $("#purchaseTable").on('click', '#deleteRow', function() {
 
     $(this).closest('tr').remove();
     grandTotalDecrement();
@@ -400,6 +434,19 @@ $("#purchaseTable").on('click', '#deleteRow', function() {
     totalDiscont();
     totalQty();
 });
+                $('.number_item').text(--x);
+                $('.number_item').val(--y);
+
+                $(this).closest('tr').remove();
+
+                $('.order_discount').val('0');
+
+                grandTotalDecrement();
+                grandTotal();
+                MinustotalQty();
+                totalDiscont();
+                totalQty();
+            });
 
         });
     </script>
