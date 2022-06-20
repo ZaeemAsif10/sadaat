@@ -20,10 +20,10 @@ Admins - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Admins</h4>
+                <h4 class="page-title pull-left">Sale</h4>
                 <ul class="breadcrumbs pull-left">
-                    <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All Admins</span></li>
+                    <li><a href="{{ route('admin.sale') }}">All Sale</a></li>
+                    <li><span>sale-update</span></li>
                 </ul>
             </div>
         </div>
@@ -40,100 +40,14 @@ Admins - Admin Panel
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title float-left">Sale List</h4>
+                    <h4 class="header-title float-left">Sale Update</h4>
                     <p class="float-right mb-2">
                         @if (Auth::guard('admin')->user()->can('admin.edit'))
                         <button type="button" class="btn btn-primary btn-flat btn-md" data-toggle="modal" data-target=".bd-example-modal-lg">+ Add new
                         </button> @endif
                     </p>
                     <div class="clearfix " style="margin-top: 40px;"></div>
-                    <div class="data-tables">
-                        <table id="dataTable" class="text-center">
-                            
-                            <thead class="bg-light text-capitalize">
-                                <tr>
-                                    <th width="5%">Sl</th>
-                                    <th width="5%">warehouse name</th>
-                                    <th width="5%">Customer name</th>
-                                    <th width="5%">Payment  Status</th>
-                                    <th width="5%">Payment  Status</th>
-                                    <th width="5%">Grand  Total</th>
-
-                                    <th width="5%">created  Date</th>
-
-                                    <th width="5%">image</th>
-                                    <th width="5%">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($sale as $ware)
-                                <tr>
-                                    <td>{{$ware->id}}</td>
-
-                                    <td>{{$ware->ware->wareh_name}}</td>
-                                    <td>{{$ware->customer->name}}</td>
-                                    <td>
-                                        @if ($ware->payment_status == '1')
-                                            <span class="badge badge-pill badge-success">Received</span>
-                                        @elseif ($ware->payment_status == '2')
-                                            <span class="badge badge-pill badge-success">Partial</span>
-                                        @elseif ($ware->payment_status == '3')
-                                            <span class="badge badge-pill badge-warning">Pending</span>
-                                        @else
-                                            <span class="badge badge-pill badge-info">Ordered</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($ware->sale_status == '1')
-                                            <span class="badge badge-pill badge-warning"> Pending</span>
-                                        @else ($ware->sale_status == '2')
-                                            <span class="badge badge-pill badge-success">Completed</span>
-                                      
-                                        @endif
-                                    </td>
-                                    <td>{{ $ware->grand_total}}</td>
-
-                                    <td>{{ date('d-m-Y', strtotime($ware->created_at))}}</td>
-                                    <td> <img src="{{ asset('storage/app/public/uploads/sale/'.$ware->document) }}" width="30%"></td>
-
-
-                                    <td>
-                                        <ul class="d-flex justify-content-center">
-                                            <!-- <li class="mr-3"><a type="button" class="" data-toggle="modal" data-target=".bd-example-modal-lg-{{$ware->id}}" class="text-secondary"><i class="fa fa-edit"></i></a></li> -->
-                                            <li class="mr-3"><a type="button" href="{{route('admin.sale.update',$ware->id)}}" ><i class="fa fa-edit"></i></a></li>
-
-                                            <form method="get" action="{{ route('admin.brand.delete', $ware->id) }}">
-                            @csrf
-                            <input name="_method" type="hidden" value="DELETE">
-                            <a type="submit" class=" text-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'><i class="ti-trash"></i></a>
-                        </form>                                        </ul>
-                                    </td>
-
-
-
-                    </div>
-                    </form>
-
-                    @endforeach
-                    </tr>
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- data table end -->
-
-</div>
-<div class="modal fade bd-example-modal-lg" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Sale</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-            </div>
-            <div class="modal-body">
-            <form action="{{route('admin.sale.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('admin.sale.update.data',$sale_first->id )}}" method="POST" enctype="multipart/form-data">
                 @csrf
             <div class="card ">
                     <div class="row ">
@@ -142,7 +56,7 @@ Admins - Admin Panel
                             <select name="warehouse_id" id="cus" class="form-control" required>
                                 <option value="" selected disabled>Choose Warehouse</option>
                                 @foreach ($warehouses as $warehouse)
-                                    <option value="{{ $warehouse->id }}">{{ $warehouse->wareh_name }}</option>
+                                    <option value="{{ $warehouse->id }}" @if($warehouse->id==$sale_first->warehouse_id) selected @endif>{{ $warehouse->wareh_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -151,16 +65,15 @@ Admins - Admin Panel
                             <select name="customer_id" id="cus1" class="form-control" required>
                                 <option value="" selected disabled>Choose Customer</option>
                                 @foreach ($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                    <option value="{{ $supplier->id }}" @if($supplier->id==$sale_first->customer_id) selected @endif>{{ $supplier->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-3 mt-3">
                             <label for="">Sale Status </label>
-                            <select name="sale_status" id="cus1" class="form-control">
-                                <option value="" selected disabled>Choose Status</option>
-                                <option value="1">Pending</option>
-                                <option value="2">Completed</option>
+                            <select name="sale_status" id="cus1" class="form-control" >
+                                <option value="1" @if('1'==$sale_first->sale_status) selected @endif>Pending</option>
+                                <option value="2" @if('2'==$sale_first->sale_status) selected @endif>Completed</option>
 
                             </select>
                         </div>
@@ -169,16 +82,16 @@ Admins - Admin Panel
                             <label for="">payment  Status </label>
                             <select name="payment_status" id="cus1" class="form-control">
                                 <option value="" selected disabled>Choose Status</option>
-                                <option value="1">Received</option>
-                                <option value="2">Partial</option>
-                                <option value="3">Pending</option>
-                                <option value="4">Ordered</option>
+                                <option value="1" @if('1'==$sale_first->payment_status) selected @endif>Received</option>
+                                <option value="2" @if('2'==$sale_first->payment_status) selected @endif>Partial</option>
+                                <option value="3" @if('3'==$sale_first->payment_status) selected @endif>Pending</option>
+                                <option value="4" @if('4'==$sale_first->payment_status) selected @endif>Ordered</option>
                             </select>
                         </div>
 
                         <div class="col-md-6 mt-3">
                             <label for="">Attach Document </label>
-                            <input type="file" name="document" class="form-control" required>
+                            <input type="file" name="document" class="form-control" >
                         </div>
 
                         <div class="col-md-12 mt-3">
@@ -192,36 +105,45 @@ Admins - Admin Panel
                                         <th>Net Unit Cost</th>
                                         <!-- <th>Discount</th> -->
                                         <th>SubTotal</th>
-                                        <th>ADD</th>
+                                        <th>   <button type="button" id="addRow" class="btn btn-success btn-sm float-right"><i
+                                            class="fa fa-plus" aria-hidden="true"></i></button>
+                                
+                                        </th>
                                     </tr>
                                 </thead>
+                                
                                 <tbody id="purchaseTable">
-                                    <tr>
-                                        <td> <select name="product_id[]" class="form-control select_product">
+                                    
+                                    @foreach($sale_first->productsales as $key => $value)
+                                        
+                                    <tr >
+                                        <td> <select name="product_id[]" class="form-control select_product" >
                                                 <option value="" selected disabled>Choose Product</option>
                                                 @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                                                    <option value="{{ $product->id }}" @if($value->product_id==$product->id) selected @endif>{{ $product->product_name }}</option>
                                                 @endforeach
                                             </select></td>
-                                        <td><input type="text" class="form-control name" name="name[]" placeholder="Name">
+                                        <td><input type="text" class="form-control name" name="name[]"  value="{{ $value->product_name }}" placeholder="Name">
                                         </td>
-                                        <td><input type="text" class="form-control code" name="code[]" placeholder="code">
+                                        <td><input type="text" class="form-control code" name="code[]" value="{{ $value->product_code }}" placeholder="code">
                                         </td>
-                                        <td><input type="text" class="form-control qty" name="qty[]" placeholder="0.00">
+                                        <td><input type="text" class="form-control qty" name="qty[]" value="{{ $value->product_qty }}" placeholder="0.00">
                                         </td>
-                                        <td><input type="number"  class="form-control cost" name="price[]" placeholder="0.00">
+                                        <td><input type="number"  class="form-control cost" name="price[]" value="{{ $value->product_unit_price }}" placeholder="0.00">
                                         </td>
                                         <!-- <td style="    display: inline-flex; "> <button style="width:50px; ;
   border-radius: 0px;" type="button" id="as" class="btn btn-success btn-sm"><i
                                                     class="fa fa-fan" aria-hidden="true"></i></button><input style="width: 84px; border-radius: 0px;" type="text"  class="form-control discont" name="discont[]"
                                                 placeholder="0.00"></td> -->
-                                        <td><input type="number" class="form-control subtot" name="product_subtot[]"
+                                        <td><input type="number" class="form-control subtot" name="product_subtot[]" value="{{ $value->product_total_price }}"
                                                 placeholder="0.00"></td>
-                                        <td><button type="button" id="addRow" class="btn btn-success btn-sm"><i
-                                                    class="fa fa-plus" aria-hidden="true"></i></button>
-                                        
-                                                </td>
+                                                 <td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash"
+                            aria-hidden="true"></i></button></td>
+                                      
                                     </tr>
+                                    @endforeach
+                                    
+
                                 </tbody>
 
                                 <tr>
@@ -238,12 +160,12 @@ Admins - Admin Panel
 
                         <div class="col-md-6 mt-3">
                             <label for="">Order Discount </label>
-                            <input type="text" name="order_discount" class="form-control order_discount" required>
+                            <input type="text" name="order_discount" value="{{ $sale_first->order_discount }}" class="form-control order_discount" required>
                         </div>
 
                         <div class="col-md-6 mt-3">
                             <label for="">Shipping Cost </label>
-                            <input type="text" name="shipping_cost" class="form-control shipping_cost" required>
+                            <input type="text" name="shipping_cost"  value="{{ $sale_first->shipping_cost }}" class="form-control shipping_cost" required>
                         </div>
 
                         
@@ -251,16 +173,18 @@ Admins - Admin Panel
 
                         <div class="col-md-6 mt-3">
                             <label for="">Sale Note </label>
-                            <textarea name="sale_note" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="sale_note" cols="30" rows="5" class="form-control" >{{ $sale_first->sale_note }} </textarea>
                         </div>
 
                         <div class="col-md-6 mt-3">
                             <label for="">Staff Note </label>
-                            <textarea name="staf_note" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="staf_note" cols="30" rows="5" class="form-control"  >{{ $sale_first->staf_note }}</textarea>
                         </div>
                        
                     </div>
-
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
                     <table class="table mt-4 table-bordered">
                         <thead>
                             <tr>
@@ -276,27 +200,10 @@ Admins - Admin Panel
                     </table>
 
                 </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-            </div>
-        </form>
-
-        <!-- data table end -->
-
-
-
-            </div>
-          
-        </div>
-    </div>
-</div>
-
 <div id="purchaseTable1" style="display: none;">
         <table>
             <tr>
-                <td> <select name="product_id[]" id="cus1" class="form-control select_product">
+                <td> <select name="product_id[]" id="cus1"  class="form-control select_product">
                         <option value="" selected disabled>Choose Product</option>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}">{{ $product->product_name }}</option>
@@ -314,6 +221,7 @@ Admins - Admin Panel
             </tr>
         </table>
     </div>
+                    </form>
 @endsection
 
 
@@ -368,6 +276,7 @@ $(document).on('keyup', '.invoice_item_price, .invoice_item_quantity, .invoice_i
             $('#purchaseTable').on('change', '.select_product', function() {
 
                 var product_id = $(this).val();
+               
                 var $currentRow = $(this).closest('tr');
 
                 $.ajax({

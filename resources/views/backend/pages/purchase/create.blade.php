@@ -340,7 +340,6 @@
                 });
 
                 $('.totDis').text(totalDisc);
-                $('.Total_quantity').val(totalDisc);
 
             
             }
@@ -398,6 +397,7 @@ $("#purchaseTable").on('click', '#deleteRow', function() {
     grandTotalDecrement();
     grandTotal();
     MinustotalQty();
+    totalDiscont();
     totalQty();
 });
 
