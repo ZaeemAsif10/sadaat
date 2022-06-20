@@ -122,5 +122,7 @@ Route::get('customer-delete', [CustomerController::class, 'customerDelete']);
 Route::get('purchase', [PurchaseController::class, 'index'])->name('purchase');
 Route::get('create-purchase', [PurchaseController::class, 'createPurchase'])->name('create.purchase');
 Route::post('store-purchase', [PurchaseController::class, 'storPurchase']);
+Route::get('/purchase-update/{id}', 'Backend\PurchaseController@updatePurchase')->name('admin.purchase.update');
+Route::post('/purchase-update/{id}', 'Backend\PurchaseController@updatePurchaseData')->name('admin.purchase.update.data');
 
 Route::get('get-product-detail', [PurchaseController::class, 'getProductDetail']);

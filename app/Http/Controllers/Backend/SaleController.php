@@ -33,6 +33,9 @@ class SaleController extends Controller
         $sale_first = Sale::with('productsales')->where('id', $id)->first();
         $warehouses = WareHouse::get();
 
+        $sale_first= Sale::with('productsales')->where('id',$id)->first();
+        //  dd($sale_first);
+        $warehouses = WareHouse::get();
         $products = Product::get();
         $ware_houses = WareHouse::get();
         $suppliers = Customer::get();
