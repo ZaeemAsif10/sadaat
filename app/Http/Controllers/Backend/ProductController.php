@@ -92,8 +92,6 @@ class ProductController extends Controller
 
     $random = Str::random(8);
 
-
-
     $pro->product_detail = $request->product_detail;
     $pro->product_name = $request->product_name;
     $pro->product_code = $random;
