@@ -13,12 +13,10 @@ class SaleController extends Controller
 {
     public function Sale()
     {
-        $sale= Sale::get();
+        $sale = Sale::get();
         $ware_houses = WareHouse::get();
         $products = Product::get();
-
         $customers = Customer::get();
-
         return view('backend.pages.sales.sales', get_defined_vars());
     }
 }
