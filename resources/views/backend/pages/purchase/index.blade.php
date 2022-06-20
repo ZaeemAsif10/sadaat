@@ -101,8 +101,9 @@
                                                 aria-expanded="false" aria-hidden="true" style="cursor: pointer;"></i>
                                             <div class="dropdown-menu" x-placement="left-start"
                                                 style="position: absolute; transform: translate3d(-123px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                <a class="dropdown-item" href="{{ route('admin.purchase.update',$purchase->id) }}" >Edit</a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#paymentModal">Add Payment</a>
+                                                    data-target="#paymentModal">Payment</a>
                                             </div>
                                         </div>
                                     </td>
