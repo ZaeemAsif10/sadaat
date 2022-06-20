@@ -550,6 +550,7 @@ class ComposerStaticInit7fd243893cfe65e58046af58b33a4a33
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/Models/Customer.php',
         'App\\Models\\Customer_group' => __DIR__ . '/../..' . '/app/Models/Customer_group.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
+        'App\\Models\\ProductSale' => __DIR__ . '/../..' . '/app/Models/ProductSale.php',
         'App\\Models\\Purchase' => __DIR__ . '/../..' . '/app/Models/Purchase.php',
         'App\\Models\\Purchase_product' => __DIR__ . '/../..' . '/app/Models/Purchase_product.php',
         'App\\Models\\Sale' => __DIR__ . '/../..' . '/app/Models/Sale.php',

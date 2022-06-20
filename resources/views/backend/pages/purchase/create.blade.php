@@ -427,6 +427,13 @@
 
             $("#purchaseTable").on('click', '#deleteRow', function() {
 
+    $(this).closest('tr').remove();
+    grandTotalDecrement();
+    grandTotal();
+    MinustotalQty();
+    totalDiscont();
+    totalQty();
+});
                 $('.number_item').text(--x);
                 $('.number_item').val(--y);
 

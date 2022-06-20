@@ -83,7 +83,10 @@ Route::get('/delete-product/{id}', 'Backend\ProductController@ProductDelete')->n
 
 //sale routes
 Route::get('/sales', 'Backend\SaleController@Sale')->name('admin.sale');
-Route::post('/create-product', 'Backend\ProductController@ProductStore')->name('admin.product.create');
+Route::post('/create-sale', 'Backend\SaleController@saleStore')->name('admin.sale.store');
+Route::get('/sale-update/{id}', 'Backend\SaleController@SaleUpdate')->name('admin.sale.update');
+Route::post('/sale-update-data/{id}', 'Backend\SaleController@saleStoreupdatedata')->name('admin.sale.update.data');
+
 Route::post('/update-product', 'Backend\ProductController@ProductUpdate')->name('admin.product.update');
 Route::get('/delete-product/{id}', 'Backend\ProductController@ProductDelete')->name('admin.product.delete');
 

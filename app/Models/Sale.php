@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Sale extends Model
 {
     use HasFactory;
+    public function ware()
+    {
+        return $this->belongsTo(WareHouse::class, 'warehouse_id','id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id','id');
+    }
+
+
+    public function productsales()
+    {
+        return $this->hasMany(ProductSale::class, 'sale_id','id');
+    }
+
 }
