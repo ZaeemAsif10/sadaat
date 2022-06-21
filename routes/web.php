@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\CustomerGroupController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\PurchaseController;
+use App\Http\Controllers\Backend\POSController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -124,5 +125,8 @@ Route::get('create-purchase', [PurchaseController::class, 'createPurchase'])->na
 Route::post('store-purchase', [PurchaseController::class, 'storPurchase']);
 Route::get('/purchase-update/{id}', 'Backend\PurchaseController@updatePurchase')->name('admin.purchase.update');
 Route::post('/purchase-update/{id}', 'Backend\PurchaseController@updatePurchaseData')->name('admin.purchase.update.data');
+
+Route::get('pos', [POSController::class, 'index'])->name('pos');
+Route::post('quick-customer-store', [POSController::class, 'quickCustomerStore']);
 
 Route::get('get-product-detail', [PurchaseController::class, 'getProductDetail']);

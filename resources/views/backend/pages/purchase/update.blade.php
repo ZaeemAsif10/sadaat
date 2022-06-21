@@ -8,8 +8,7 @@
     <!-- Start datatable css -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
 @endsection
@@ -45,10 +44,10 @@
         </div>
     </div>
     <!-- page title area end -->
-    <form action="{{ route('admin.purchase.update.data',$first->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.purchase.update.data', $first->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-    <div class="main-content-inner">
-        <!-- data table start -->
+        <div class="main-content-inner">
+            <!-- data table start -->
 
             <div class="card mt-5">
                 <div class="card-body">
@@ -59,7 +58,9 @@
                             <select name="warehouse_id" id="cus" class="form-control" required>
                                 <option value="" selected disabled>Choose Warehouse</option>
                                 @foreach ($warehouses as $warehouse)
-                                    <option value="{{ $warehouse->id }}" @if($first->warehouse_id==$warehouse->id ) selected @endif>{{ $warehouse->wareh_name }}</option>
+                                    <option value="{{ $warehouse->id }}"
+                                        @if ($first->warehouse_id == $warehouse->id) selected @endif>{{ $warehouse->wareh_name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -68,7 +69,8 @@
                             <select name="supplier_id" id="cus1" class="form-control" required>
                                 <option value="" selected disabled>Choose Supplier</option>
                                 @foreach ($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}" @if($first->supplier_id==$supplier->id ) selected @endif>{{ $supplier->name }}</option>
+                                    <option value="{{ $supplier->id }}" @if ($first->supplier_id == $supplier->id) selected @endif>
+                                        {{ $supplier->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -76,16 +78,16 @@
                             <label for="">Payment Status </label>
                             <select name="payment_status" id="cus1" class="form-control">
                                 <option value="" selected disabled>Choose Status</option>
-                                <option value="1" @if('1'==$first->payment_status ) selected @endif>Received</option>
-                                <option value="2" @if('2'==$first->payment_status ) selected @endif>Partial</option>
-                                <option value="3" @if('3'==$first->payment_status ) selected @endif>Pending</option>
-                                <option value="4" @if('4'==$first->payment_status ) selected @endif>Ordered</option>
+                                <option value="1" @if ('1' == $first->payment_status) selected @endif>Received</option>
+                                <option value="2" @if ('2' == $first->payment_status) selected @endif>Partial</option>
+                                <option value="3" @if ('3' == $first->payment_status) selected @endif>Pending</option>
+                                <option value="4" @if ('4' == $first->payment_status) selected @endif>Ordered</option>
                             </select>
                         </div>
 
                         <div class="col-md-6 mt-3">
                             <label for="">Attach Document </label>
-                            <input type="file" name="document" class="form-control" >
+                            <input type="file" name="document" class="form-control">
                         </div>
 
                         <div class="col-md-12 mt-3">
@@ -98,39 +100,45 @@
                                         <th>Quantity</th>
                                         <th>Net Unit Cost</th>
                                         <th>SubTotal</th>
-                                        <th>   <button type="button" id="addRow" class="btn btn-success btn-sm float-right"><i
-                                            class="fa fa-plus" aria-hidden="true"></i></button>
-                                
+                                        <th> <button type="button" id="addRow"
+                                                class="btn btn-success btn-sm float-right"><i class="fa fa-plus"
+                                                    aria-hidden="true"></i></button>
+
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody id="purchaseTable">
-                                    @foreach($first->product_purchase as $key => $value)
-                                        
-                                   
-                                    <tr>
-                                        <td> <select name="product_id[]" class="form-control select_product">
-                                                @foreach ($products as $product)
-                                                    <option value="{{ $product->id }}" @if($value->product_id==$product->id) selected @endif>{{ $product->product_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select></td>
-                                        <td><input type="text" class="form-control name" value="{{$value->name}}" name="name[]" placeholder="Name">
-                                        </td>
-                                        <td><input type="text" class="form-control code" value="{{$value->code}}" name="code[]" placeholder="code">
-                                        </td>
-                                        <td><input type="text" class="form-control qty" name="qty[]" value="{{$value->qty}}" placeholder="0.00">
-                                        </td>
-                                        <td><input type="number" class="form-control cost" value="{{$value->net_unit_cost}}" name="net_unit_cost[]" placeholder="0.00" readonly>
-                                        </td>
-                                        {{-- <td><input type="number" class="form-control discont" name="discont[]"
+                                    @foreach ($first->product_purchase as $key => $value)
+                                        <tr>
+                                            <td> <select name="product_id[]" class="form-control select_product">
+                                                    @foreach ($products as $product)
+                                                        <option value="{{ $product->id }}"
+                                                            @if ($value->product_id == $product->id) selected @endif>
+                                                            {{ $product->product_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select></td>
+                                            <td><input type="text" class="form-control name" value="{{ $value->name }}"
+                                                    name="name[]" placeholder="Name">
+                                            </td>
+                                            <td><input type="text" class="form-control code" value="{{ $value->code }}"
+                                                    name="code[]" placeholder="code">
+                                            </td>
+                                            <td><input type="text" class="form-control qty" name="qty[]"
+                                                    value="{{ $value->qty }}" placeholder="0.00">
+                                            </td>
+                                            <td><input type="number" class="form-control cost"
+                                                    value="{{ $value->net_unit_cost }}" name="net_unit_cost[]"
+                                                    placeholder="0.00" readonly>
+                                            </td>
+                                            {{-- <td><input type="number" class="form-control discont" name="discont[]"
                                                 placeholder="0.00"></td> --}}
-                                        <td><input type="number" class="form-control subtot" name="total[]"
-                                                placeholder="0.00" readonly value="{{ $value->total  }}"></td>
-                                                <td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash"
-                                                    aria-hidden="true"></i></button>
-                                        </td>
-                                    </tr>
+                                            <td><input type="number" class="form-control subtot" name="total[]"
+                                                    placeholder="0.00" readonly value="{{ $value->total }}"></td>
+                                            <td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i
+                                                        class="fa fa-trash" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
 
@@ -147,17 +155,19 @@
 
                         <div class="col-md-6 mt-3">
                             <label for="">Order Discount </label>
-                            <input type="text" name="order_discount" value="{{ $first->order_discount }}" class="form-control order_discount" >
+                            <input type="text" name="order_discount" value="{{ $first->order_discount }}"
+                                class="form-control order_discount">
                         </div>
 
                         <div class="col-md-6 mt-3">
                             <label for="">Shipping Cost </label>
-                            <input type="text" name="shipping_cost" value="{{ $first->shipping_cost }}" class="form-control shipping_cost" >
+                            <input type="text" name="shipping_cost" value="{{ $first->shipping_cost }}"
+                                class="form-control shipping_cost">
                         </div>
 
                         <div class="col-md-12 mt-3">
                             <label for="">Note </label>
-                            <textarea name="note" cols="30" rows="5"  class="form-control" required>{{ $first->note }}</textarea>
+                            <textarea name="note" cols="30" rows="5" class="form-control" required>{{ $first->note }}</textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -167,11 +177,13 @@
                     <table class="table mt-4 table-bordered">
                         <thead>
                             <tr>
-                                <input type="hidden" name="total_qty" class="Total_quantity" value="{{ $first->total_qty }}">
+                                <input type="hidden" name="total_qty" class="Total_quantity"
+                                    value="{{ $first->total_qty }}">
                                 <th>Items <span class="float-right text-secondary number_item">{{ $first->item }}</span>
                                 </th>
                                 <th>Total <span class="float-right text-secondary all_total">0.00</span>
-                                <input type="hidden"  name="total_cost" value="{{ $first->total_cost }}" class="all_total">
+                                    <input type="hidden" name="total_cost" value="{{ $first->total_cost }}"
+                                        class="all_total">
                                 </th>
                                 <th>Order Discount <span class="float-right text-secondary all_disc">0.00</span>
                                 </th>
@@ -179,7 +191,8 @@
                                 </th>
                                 <th>Grand Total <span class="float-right text-secondary all_total granddsocount"
                                         i>0.00</span>
-                                        <input type="hidden" name="grand_total" class="all_total granddsocount"></th>
+                                    <input type="hidden" name="grand_total" class="all_total granddsocount">
+                                </th>
                                 {{-- <input type="text" name="grand_total" class="all_total granddsocount"> --}}
                             </tr>
                         </thead>
@@ -187,34 +200,32 @@
 
                 </div>
             </div>
-        </form>
-        <!-- data table end -->
-
-
+    </form>
+    <!-- data table end -->
     </div>
-   
 
-<div id="purchaseTable1" style="display: none;">
-    <table>
-        <tr>
-            <td> <select name="product_id[]" id="cus1" class="form-control select_product">
-                    @foreach ($products as $product)
-                        <option value="{{ $product->id }}">{{ $product->product_name }}</option>
-                    @endforeach
-                </select></td>
-            <td><input type="text" class="form-control name" name="name[]" placeholder="Name"></td>
-            <td><input type="text" class="form-control code" name="code[]" placeholder="0.00"></td>
-            <td><input type="number" class="form-control qty" name="qty[]" placeholder="0.00"></td>
-            <td><input type="text" class="form-control cost" name="net_unit_cost[]" placeholder="0.00" readonly></td>
-            {{-- <td><input type="number" class="form-control discont" name="product_discont" placeholder="0.00"></td> --}}
-            <td><input type="number" class="form-control subtot" name="total[]" placeholder="0.00" readonly></td>
-            <td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash"
-                        aria-hidden="true"></i></button>
-            </td>
-        </tr>
-    </table>
-</div>
 
+    <div id="purchaseTable1" style="display: none;">
+        <table>
+            <tr>
+                <td> <select name="product_id[]" id="cus1" class="form-control select_product">
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                        @endforeach
+                    </select></td>
+                <td><input type="text" class="form-control name" name="name[]" placeholder="Name"></td>
+                <td><input type="text" class="form-control code" name="code[]" placeholder="0.00"></td>
+                <td><input type="number" class="form-control qty" name="qty[]" placeholder="0.00"></td>
+                <td><input type="text" class="form-control cost" name="net_unit_cost[]" placeholder="0.00" readonly>
+                </td>
+                {{-- <td><input type="number" class="form-control discont" name="product_discont" placeholder="0.00"></td> --}}
+                <td><input type="number" class="form-control subtot" name="total[]" placeholder="0.00" readonly></td>
+                <td><button type="button" id="deleteRow" class="btn btn-danger btn-sm"><i class="fa fa-trash"
+                            aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        </table>
+    </div>
 @endsection
 
 
@@ -228,16 +239,9 @@
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
 
 
-
-
-
-    <!-- Button trigger modal -->
-
-
-
+    
     <script type="text/javascript"></script>
     <script>
-
         $(document).ready(function() {
 
 
@@ -411,32 +415,32 @@
 
 
             }
-            var x = 2 ; //Initial field counter is 1
+            var x = 2; //Initial field counter is 1
 
-//Once add button is clicked
-
-
-$('#addRow').on('click', function() {
-    var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
-    $("#purchaseTable").append(tr);
-
-    $('.number_item').text(++x);
-});
+            //Once add button is clicked
 
 
+            $('#addRow').on('click', function() {
+                var tr = $("#purchaseTable1").find("Table").find("TR:has(td)").clone();
+                $("#purchaseTable").append(tr);
 
-$("#purchaseTable").on('click', '#deleteRow', function() {
-    
-    $('.number_item').text(--x);
+                $('.number_item').text(++x);
+            });
 
-    $(this).closest('tr').remove();
-    $('.order_discount').val('0');
-    grandTotalDecrement();
-    grandTotal();
-    MinustotalQty();
-    totalDiscont();
-    totalQty();
-});
+
+
+            $("#purchaseTable").on('click', '#deleteRow', function() {
+
+                $('.number_item').text(--x);
+
+                $(this).closest('tr').remove();
+                $('.order_discount').val('0');
+                grandTotalDecrement();
+                grandTotal();
+                MinustotalQty();
+                totalDiscont();
+                totalQty();
+            });
 
         });
     </script>

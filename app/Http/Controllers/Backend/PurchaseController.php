@@ -46,7 +46,7 @@ class PurchaseController extends Controller
         $data = Product::where('id', $request->product_id)->first();
         return $data;
     }
-    public function updatePurchase(Request $request,$id)
+    public function updatePurchase(Request $request, $id)
     {
         $warehouses = WareHouse::all();
         $suppliers = Supplier::all();
@@ -56,13 +56,12 @@ class PurchaseController extends Controller
 
         return view('backend.pages.purchase.update', get_defined_vars());
     }
-   public function updatePurchaseData(Request $request,$id){
-    $user_id =  Auth::guard('admin')->user()->id;
-    // dd($request->all());
-$size = count($request->product_id);
-// dd($size);
+    public function updatePurchaseData(Request $request, $id)
+    {
+        $user_id =  Auth::guard('admin')->user()->id;
+        $size = count($request->product_id);
 
-        $purchase = Purchase::where('id',$id)->first();
+        $purchase = Purchase::where('id', $id)->first();
         $purchase->user_id = $user_id;
         $purchase->warehouse_id = $request->warehouse_id;
         $purchase->supplier_id = $request->supplier_id;
@@ -89,13 +88,13 @@ $size = count($request->product_id);
         }
 
         $purchase->save();
-        $delete_sale=Purchase_product::where('purchase_id',$id);
+        $delete_sale = Purchase_product::where('purchase_id', $id);
         $delete_sale->delete();
 
         for ($i = 0; $i < $size; $i++) {
 
             $pur = new Purchase_product();
-            $pur->purchase_id =$id;
+            $pur->purchase_id = $id;
             $pur->product_id = $request->product_id[$i];
             $pur->name = $request->name[$i];
             $pur->code = $request->code[$i];
@@ -106,8 +105,8 @@ $size = count($request->product_id);
         }
 
         return back()->with('message', 'Purchase Update successfully');
+    }
 
-   }
     public function storPurchase(Request $request)
     {
         $user_id =  Auth::guard('admin')->user()->id;
