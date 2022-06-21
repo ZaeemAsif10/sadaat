@@ -13,6 +13,13 @@
 <link rel="stylesheet" href="{{ asset('backend/assets/css/styles.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/assets/css/responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/assets/css/toastr.css') }}">
+<link rel="stylesheet" href="{{ asset('backend/assets/datatablecss/datatable1.css') }}">
+<link rel="stylesheet" href="{{ asset('backend/assets/datatablecss/datatable2.css') }}">
+
+<link rel="stylesheet" href="{{ asset('backend/assets/datatablecss/datatable3.css') }}">
+
+<link rel="stylesheet" href="{{ asset('backend/assets/datatablecss/datatable4.css') }}">
+
 <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/dropify/css/dropify.min.css') }}">
 
      <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/sweetalert2.min.css') }}">

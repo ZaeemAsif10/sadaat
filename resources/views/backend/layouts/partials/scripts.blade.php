@@ -9,6 +9,12 @@
 <script src="{{ asset('backend/assets/js/jquery.slicknav.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/sweetalert.min.js') }}"></script>
 <script src="{{asset('backend/assets/dropify/js/dropify.min.js') }}"></script>
+<script src="{{asset('backend/assets/datatablecss/datatable1.js') }}"></script>
+<script src="{{asset('backend/assets/datatablejs/datatable2.js') }}"></script>
+<script src="{{asset('backend/assets/datatablejs/datatable3.js') }}"></script>
+<script src="{{asset('backend/assets/datatablejs/datatable4.js') }}"></script>
+<script src="{{asset('backend/assets/datatablejs/datatable5.js') }}"></script>
+<script src="{{asset('backend/assets/datatablejs/sweetalert.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 <!-- start chart js -->
