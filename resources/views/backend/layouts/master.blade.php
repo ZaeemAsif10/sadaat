@@ -21,7 +21,7 @@
     </div>
     <!-- preloader area end -->
     <!-- page container area start -->
-    <div class="page-container">
+    <div class="page-container @if(isset($index)) sbar_collapsed @else page-container @endif " >
 
        @include('backend.layouts.partials.sidebar')
 

@@ -18,6 +18,7 @@ class POSController extends Controller
         $customers = Customer::all();
         $customer_groups = Customer_group::all();
         // $categories = Catagory::all();
+        $index="1";
         return view('backend.pages.pos.index', get_defined_vars());
     }
 }

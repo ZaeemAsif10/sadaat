@@ -26,6 +26,7 @@
             padding: 6px 10px;
             margin: 0px -1px;
         }
+        
     </style>
     <!-- page title area start -->
     <div class="page-title-area">
